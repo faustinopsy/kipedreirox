@@ -1,0 +1,45 @@
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/img/night-construction-site.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    min-height: 400px;
+    color: var(--cor-texto-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.hero__conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #222222;
+    backdrop-filter: blur(4px);
+    padding: 30px 40px;
+    /* max-width: 1200px; */
+    width: 100%;
+    margin-top: 500px;
+}
+
+.hero__texto {
+    display: flex;
+    align-items: center;
+}
+
+.hero__icone {
+    width: 50px;
+    margin-right: 25px;
+}
+
+.hero__texto h1 {
+    color: var(--cor-texto-claro);
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.hero__texto p {
+    font-size: 1rem;
+    color: var(--cor-cinza-claro);
+}

@@ -1,0 +1,65 @@
+.rodape {
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-cinza-claro);
+    padding-top: 60px;
+}
+
+.rodape__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--cor-secundaria);
+}
+
+.rodape__coluna {
+    flex-basis: 22%;
+}
+
+.rodape__logo {
+    height: 8rem;
+    margin-bottom: 1rem;
+}
+
+.rodape__descricao {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.rodape__titulo {
+    color: var(--cor-primaria);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.rodape__lista-links li {
+    margin-bottom: 0.5rem;
+}
+
+.rodape__lista-links a {
+    transition: color 0.3s;
+}
+
+.rodape__lista-links a:hover {
+    color: var(--cor-primaria);
+}
+
+.rodape__redes-sociais a {
+    margin-right: 15px;
+}
+.rodape__redes-sociais img {
+    height: 24px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+.rodape__redes-sociais a:hover img {
+    opacity: 1;
+}
+
+.rodape__direitos {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.8rem;
+    color: var(--cor-secundaria);
+}

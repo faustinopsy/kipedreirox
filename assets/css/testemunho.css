@@ -1,0 +1,101 @@
+.processos {
+    background-color: var(--cor-fundo-secao);
+}
+.processos__lista {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 30px;
+}
+.processos__item {
+    flex-basis: 23%;
+}
+.processos__item img {
+    height: 60px;
+    margin-bottom: 1rem;
+}
+.processos__item h3 {
+    margin: 0.5rem 0;
+    color: var(--cor-secundaria);
+}
+.processos__numero {
+    display: none;
+}
+
+.mask {
+    mask-image: url(../img/logo/KiPedreiro_v2.png);
+    mask-repeat: no-repeat;
+    mask-size: 70%;
+    position: absolute;
+    left: 17%;
+    transition: 0.5s;
+    filter: contrast(0.3);
+    cursor: pointer;
+  }
+
+.mask:hover{
+    mask-image: radial-gradient(circle, black 50%, rgba(0, 0, 0, 0.0) 50%);
+    mask-repeat: no-repeat;
+    mask-size: 70%;
+    position: absolute;
+    left: 17%;
+    filter: contrast(1);
+    cursor: pointer;
+}
+
+.testemunho {
+    position: relative;
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-texto-claro);
+    padding: 0;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    
+}
+
+
+.testemunho .container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.testemunho__caixa {
+    background-color: rgba(255, 199, 9, 0.9);
+    padding: 40px;
+    width: 50%;
+    position: relative;
+    color: var(--cor-fundo-escuro);
+}
+
+.testemunho__texto {
+    font-size: 1.3rem;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.testemunho__autor {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.testemunho__navegacao {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+}
+
+.testemunho__ponto {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.2);
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.testemunho__ponto--ativo {
+    background-color: var(--cor-fundo-escuro);
+}

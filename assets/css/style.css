@@ -1,0 +1,51 @@
+@import url('variaveis.css');
+@import url('base.css');
+@import url('header.css');
+@import url('hero.css');
+@import url('cards.css');
+@import url('testemunho.css');
+@import url('footer.css');
+@import url('animar.css');
+@import url('mobile.css');
+
+/* Estilos de componentes reutilizáveis */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.botao {
+    display: inline-block;
+    padding: 12px 30px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.botao--primario {
+    background-color: var(--cor-primaria);
+    color: var(--cor-fundo-escuro);
+    border: 2px solid var(--cor-primaria);
+}
+
+.botao--primario:hover {
+    background-color: transparent;
+    color: var(--cor-primaria);
+}
+
+.botao--secundario {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto-claro);
+    border: 2px solid var(--cor-secundaria);
+}
+
+.botao--secundario:hover {
+    background-color: var(--cor-primaria);
+    color: var(--cor-fundo-escuro);
+    border-color: var(--cor-primaria);
+}

@@ -1,0 +1,12 @@
+:root {
+    --cor-primaria: #FFC709;
+    --cor-secundaria: #444444;
+    --cor-fundo: #FFFFFF;
+    --cor-fundo-escuro: #2a2a2a;
+    --cor-fundo-secao: #f7f7f7;
+    --cor-texto: #333333;
+    --cor-texto-claro: #FFFFFF;
+    --cor-cinza-claro: #EAEAEA;
+
+    --fonte-principal: 'Helvetica', 'Arial', sans-serif;
+}

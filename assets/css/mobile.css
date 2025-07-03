@@ -1,0 +1,79 @@
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.8rem; }
+    section { padding: 40px 0; }
+    
+    .cabecalho__principal .container, 
+    .cabecalho__barra-superior .container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+    .cabecalho__menu {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .cabecalho__link {
+        display: block;
+        padding: 10px;
+    }
+
+    .hero__conteudo {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero__texto {
+        flex-direction: column;
+    }
+    .hero__icone {
+        margin: 0 0 15px 0;
+    }
+    .botao--primario {
+        margin-top: 20px;
+    }
+
+    .servicos__lista {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .projetos__grid {
+        flex-direction: column;
+    }
+
+    .processos__lista {
+        flex-direction: column;
+    }
+
+    .testemunho {
+        min-height: auto;
+    }
+    .testemunho__imagem-fundo {
+        display: none;
+    }
+    .testemunho .container {
+        justify-content: center;
+    }
+    .testemunho__caixa {
+        width: 100%;
+        text-align: center;
+    }
+    .testemunho__navegacao {
+        position: static;
+        margin-top: 20px;
+    }
+
+    .rodape__grid {
+        flex-direction: column;
+        text-align: center;
+    }
+    .rodape__coluna {
+        flex-basis: 100%;
+    }
+}
