@@ -6,10 +6,109 @@
     <title>Nossos Serviços - Ki-Pedreiro</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body style="padding: 4rem; text-align: center; background-color: #f4f4f4;">
-    <img src="https://i.imgur.com/uP2u1nS.png" alt="Logo Ki-Pedreiro" style="max-width: 200px; margin-bottom: 2rem;">
-    <h1 style="color: #333;">Página de Todos os Serviços</h1>
-    <p style="color: #555; margin-bottom: 2rem;">Aqui você detalhará cada um dos serviços oferecidos pela empresa.</p>
-    <a href="index.html" class="botao botao--secundario">Voltar para a Home</a>
+<body>
+<header class="cabecalho">
+        <div class="cabecalho__barra-superior">
+            <div class="container">
+                <span><img src="assets/img/icon/001-phone-receiver-silhouette.png" alt="Ícone Telefone"> (11) 9 4802-0922</span>
+                <span><img src="assets/img/icon/019-email-1.png" alt="Ícone Email"> contato@kipedreiro.com.br</span>
+                <a href="#" class="cabecalho__login"><img src="assets/img/icon/017-profile-user-1.png" alt="Ícone Login"> Login</a>
+            </div>
+        </div>
+        <nav class="cabecalho__principal">
+            <div class="container">
+                <a href="index.html">
+                    <img src="/assets/img/logo/KiPedreiro.png" alt="Logo Ki-Pedreiro" class="cabecalho__logo">
+                </a>
+                <ul class="cabecalho__menu">
+                    <li><a href="index.html" class="cabecalho__link cabecalho__link--ativo">Home</a></li>
+                    <li><a href="#" class="cabecalho__link">Sobre</a></li>
+                    <li><a href="projetos.html" class="cabecalho__link">Portfólio</a></li>
+                    <li><a href="servicos.html" class="cabecalho__link">Serviços</a></li>
+                    <li><a href="#" class="cabecalho__link">Área de atuação</a></li>
+                    <li><a href="contato.html" class="cabecalho__link">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+<main>
+    <section class="servicos">
+            <div class="container">
+                <div class="servicos__lista">
+                    <div class="card" data-service="alvenaria">
+                        <div class="card__frente" style="background-image: url('assets/img/building-teamwork-partnership.jpg');">
+                            <h3 class="card__titulo">ALVENARIA</h3>
+                        </div>
+                        <div class="card__verso">
+                            <h3 class="card__titulo--verso">ALVENARIA</h3>
+                            <p class="card__descricao">Construção de paredes, muros e estruturas com segurança e qualidade.</p>
+                        </div>
+                    </div>
+                    <div class="card" data-service="reformas">
+                         <div class="card__frente" style="background-image: url('assets/img/bricklaying-construction-worker-building-brick-wall.jpg');">
+                            <h3 class="card__titulo">REFORMAS</h3>
+                        </div>
+                        <div class="card__verso">
+                            <h3 class="card__titulo--verso">REFORMAS</h3>
+                            <p class="card__descricao">Preparamos sua obra do básico ao bom acabamento, agilidade e excelência.</p>
+                        </div>
+                    </div>
+                    <div class="card" data-service="eletrica">
+                         <div class="card__frente" style="background-image: url('assets/img/electrician-installer-with-tool-his-hands-working-with-cable-construction-site.jpg');">
+                            <h3 class="card__titulo">ELÉTRICA</h3>
+                        </div>
+                        <div class="card__verso">
+                            <h3 class="card__titulo--verso">ELÉTRICA</h3>
+                            <p class="card__descricao">Instalações e manutenções elétricas prediais e comerciais na sua obra.</p>
+                        </div>
+                    </div>
+                    <div class="card" data-service="gestao">
+                         <div class="card__frente" style="background-image: url('assets/img/bricklayer-adding-cement-top-bricks.jpg');">
+                            <h3 class="card__titulo">GESTÃO</h3>
+                        </div>
+                        <div class="card__verso">
+                            <h3 class="card__titulo--verso">GESTÃO</h3>
+                            <p class="card__descricao">Acompanhamos sua obra da compra de materiais à gestão da mão de obra.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+            </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <div class="rodape__grid">
+                <div class="rodape__coluna">
+                    <h4 class="rodape__titulo">Navegação</h4>
+                    <ul class="rodape__lista-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="servicos.html">Serviços</a></li>
+                        <li><a href="projetos.html">Portfólio</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="rodape__coluna">
+                    <h4 class="rodape__titulo">Contato</h4>
+                    <p>(11) 9 4802-0922</p>
+                    <p>contato@kipedreiro.com.br</p>
+                    <p>Rua Exemplo, 123 - São Paulo, SP</p>
+                </div>
+                 <div class="rodape__coluna">
+                    <h4 class="rodape__titulo">Siga-nos</h4>
+                    <div class="rodape__redes-sociais">
+                        <a href="#"><img src="assets/img/icon/facebook.svg" alt="Facebook"></a>
+                        <a href="#"><img src="assets/img/icon/instagram.svg" alt="Instagram"></a>
+                        <a href="#"><img src="assets/img/icon/linkedin.svg" alt="LinkedIn"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="rodape__direitos">
+                <p>&copy; 2025 Ki-Pedreiro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
