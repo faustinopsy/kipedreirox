@@ -20,6 +20,12 @@
         padding: 10px;
     }
 
+    .card {
+    flex-basis: 100%;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+}
     .hero__conteudo {
         flex-direction: column;
         text-align: center;
@@ -35,13 +41,10 @@
     }
 
     .servicos__lista {
-        flex-direction: column;
+        display: block;
         align-items: center;
     }
-    .card {
-        width: 90%;
-        max-width: 350px;
-    }
+    
 
     .projetos__grid {
         flex-direction: column;
