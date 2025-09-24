@@ -1,5 +1,8 @@
 {
-    "name": "app/kipedreiro",
+    "name": "app/backend",
+    "description": "\"backend do sistema do curso\"",
+    "type": "no",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "App\\Kipedreiro\\": "backend/"

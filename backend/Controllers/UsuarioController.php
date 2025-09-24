@@ -14,7 +14,7 @@ class UsuarioController {
     // index
     public function index() {
         $resultado = $this->usuario->buscarUsuarios();
-        return $resultado;
+        var_dump($resultado);
     }
     // registrar
 
