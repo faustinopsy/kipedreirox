@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Kipedreiro\Rotas;
-
 class Rotas
 {
     public static function get()
     {
         return [
             'GET' => [
-                '/backend/buscarusuarios' => 'UsuarioController@index',
-                '/backend/buscarusuarioid' => 'UsuarioController@buscarUsuarioId',
+                '/backend/usuarios' => 'UsuarioController@viewListarUsuarios',
+                '/backend/usuariosemail' => 'UsuarioController@viewListarUsuarioEmail',
+                '/backend/criar' => 'UsuarioController@viewCriarUsuario',
+                '/backend/editar' => 'UsuarioController@viewEditarUsuario',
+                '/backend/excluir' => 'UsuarioController@viewExcluirUsuario',
             ],
             'POST' => [
                 '/backend/registrar' => 'UsuarioController@registrar',
