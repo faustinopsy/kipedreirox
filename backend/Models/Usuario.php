@@ -46,6 +46,13 @@ class Usuario{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    function emailExists($email){
+        $sql = "SELECT count(*) FROM tbl_usuario where email_usuario = :email and excluido_em IS NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':email', $email); 
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
     // metodo de inserir usuario create
     function inseriUsuario($nome, $email, $senha, $tipo, $status){
         $senha = password_hash($senha, PASSWORD_DEFAULT);
