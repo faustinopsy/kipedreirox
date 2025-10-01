@@ -1,4 +1,4 @@
-<form action="/backend/registrar" method="post">
+<form action="/backend/usuario/registrar" method="post">
     <div>
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome_usuario" required>

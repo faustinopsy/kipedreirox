@@ -5,6 +5,7 @@ use App\Kipedreiro\Models\Usuario;
 use App\Kipedreiro\Database\Database;
 use App\Kipedreiro\Core\View;
 use App\Kipedreiro\Validators\UserValidator;
+use App\Kipedreiro\Core\Redirect;
 class UsuarioController {
     public $usuario;
     public $db;
@@ -12,7 +13,7 @@ class UsuarioController {
     public function __construct() {
         $this->db = Database::getInstance();
         $this->usuario = new Usuario($this->db);
-        $this->userValidator = new UserValidator($this->usuario);
+        $this->userValidator = new UserValidator();
     }
     public function viewListarUsuarios() {
         $usuarios = $this->usuario->buscarUsuarios();
@@ -36,12 +37,16 @@ class UsuarioController {
 
     public function registrar(){
         $dados = $_POST;
-        $this->userValidator->validate($dados);
+        $erros = $this->userValidator->validate($dados);
+        if(!empty($erros)){
+            $mensagem = "Erro ao cadastrar usuário: " . implode(' ', $erros);
+            Redirect::redirecionarComMensagem('/backend/usuario/criar', $mensagem, 'error');
+        }
         if($this->usuario->inseriUsuario($dados['nome_usuario'], $dados['email_usuario'], 
         $dados['senha_usuario'], $dados['tipo_usuario'], $dados['status_usuario'])){
-            echo json_encode(['success' => 'Usuário criado com sucesso!'],  JSON_PRETTY_PRINT);
+            Redirect::redirecionarComMensagem('/backend/usuario/usuarios', 'Cadastrado com Sucesso!');
         } else {
-            echo json_encode(['error' => 'Erro ao criar usuário.'],  JSON_PRETTY_PRINT);
+            Redirect::redirecionarComMensagem('/backend/usuario/criar', 'Erro ao cadastrar usuário', 'error');
         }  
     }
 }

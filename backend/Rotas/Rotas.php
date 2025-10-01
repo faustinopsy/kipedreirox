@@ -6,17 +6,17 @@ class Rotas
     {
         return [
             'GET' => [
-                '/backend/usuarios' => 'UsuarioController@viewListarUsuarios',
-                '/backend/usuariosemail' => 'UsuarioController@viewListarUsuarioEmail',
-                '/backend/criar' => 'UsuarioController@viewCriarUsuario',
-                '/backend/editar' => 'UsuarioController@viewEditarUsuario',
-                '/backend/excluir' => 'UsuarioController@viewExcluirUsuario',
+                '/backend/usuario/usuarios' => 'UsuarioController@viewListarUsuarios',
+                '/backend/usuario/usuariosemail' => 'UsuarioController@viewListarUsuarioEmail',
+                '/backend/usuario/criar' => 'UsuarioController@viewCriarUsuario',
+                '/backend/usuario/editar' => 'UsuarioController@viewEditarUsuario',
+                '/backend/usuario/excluir' => 'UsuarioController@viewExcluirUsuario',
             ],
             'POST' => [
-                '/backend/registrar' => 'UsuarioController@registrar',
-                '/backend/login' => 'UsuarioController@login',
-                '/backend/atualizar' => 'UsuarioController@atualizar',
-                '/backend/deletar' => 'UsuarioController@deletar',
+                '/backend/usuario/registrar' => 'UsuarioController@registrar',
+                '/backend/usuario/login' => 'UsuarioController@login',
+                '/backend/usuario/atualizar' => 'UsuarioController@atualizar',
+                '/backend/usuario/deletar' => 'UsuarioController@deletar',
             ],
         ];
     }
