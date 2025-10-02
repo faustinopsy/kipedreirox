@@ -18,7 +18,7 @@ class Usuario{
     }
     // metodo de buscar todos os usuarios read
     function buscarUsuarios(){
-        $sql = "SELECT * FROM tbl_usuario where excluido_em IS NULL";
+        $sql = "SELECT * FROM tbl_usuario";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -47,7 +47,12 @@ class Usuario{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // metodo de inserir usuario create
-    function inseriUsuario($nome, $email, $senha, $tipo, $status){
+    function inseriUsuario(
+        $nome, 
+        $email, 
+        $senha, 
+        $tipo, 
+        $status){
         $senha = password_hash($senha, PASSWORD_DEFAULT);
         $sql = "INSERT INTO tbl_usuario (nome_usuario, email_usuario, 
         senha_usuario, tipo_usuario, status_usuario) 

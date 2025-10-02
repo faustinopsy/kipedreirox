@@ -1,20 +1,29 @@
 <?php
 namespace App\Kipedreiro;
 require_once __DIR__.'/../vendor/autoload.php';
+if (!isset($_SESSION)) {
+            session_start();
+        }
+use App\Kipedreiro\Rotas\Rotas;
 
-use App\Kipedreiro\Controllers\UsuarioController;
+$rotas = Rotas::get();
 
-// var_dump($_SERVER["REQUEST_URI"]);
-// echo "\n\n\n\n";
-// var_dump($_SERVER["REQUEST_METHOD"]);
-// exit;
-if($_SERVER["REQUEST_URI"] =="/backend/buscarusuarios" && $_SERVER["REQUEST_METHOD"] =="GET")
-{
-    $controller = new UsuarioController();
-    $resultado = $controller->index();
-    var_dump($resultado);
-
-}else
-{
-    echo 'rota não encontrada';
+$metodoHttp = $_SERVER["REQUEST_METHOD"];
+$rota = $_SERVER["REQUEST_URI"];
+if(array_key_exists($rota, $rotas[$metodoHttp]) == false ){
+    http_response_code(404);
+    echo "Página não encontrada";
+    exit;
 }
+//              retono string para separar em partes
+$partes = explode("@", $rotas[$metodoHttp][$rota] );
+$nomeController = $partes[0];
+$metodoController = $partes[1];
+$nomeCompletoController = "App\\Kipedreiro\\Controllers\\". $nomeController;
+if(!class_exists($nomeCompletoController)){
+    http_response_code(500);
+    echo "O controlador não encontrado";
+    exit;
+}
+$controller = new $nomeCompletoController();
+$controller->$metodoController();
