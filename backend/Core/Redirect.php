@@ -4,7 +4,7 @@ use App\Kipedreiro\Core\Flash;
 
 class Redirect {
     public static function redirecionarPara($url){
-        header("Location". $url);
+        header("Location: /backend/" .$url);
         exit;
     }
     public static function redirecionarComMensagem($url, $type, $message){
