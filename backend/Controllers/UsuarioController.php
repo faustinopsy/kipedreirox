@@ -31,6 +31,9 @@ class UsuarioController {
     public function viewExcluirUsuarios(){
        View::render("usuario/delete");
     }
+    public function relatorioUsuario($id, $data1, $data2){
+        View::render("usuario/relatorio", ["id"=> $id, "data1"=> $data1, "data2"=> $data2]);
+    }
     public function salvarUsuario(){
        $erros = UsuarioValidador::ValidarEntradas($_POST);
        if(!empty($erros)){

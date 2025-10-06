@@ -14,7 +14,7 @@ class Rotas
                 "/usuario/listar" => "UsuarioController@viewListarUsuarios",
                 "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
                 "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
-                "/servico/excluir/{id}" => "ServicoController@viewExcluirServicos",
+                "/usuario/{id}/relatorio/{dataInicial}/{dataFinal}" => "UsuarioController@relatorioUsuario",
             ],
             "POST" =>[
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
