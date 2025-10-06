@@ -25,8 +25,8 @@ class UsuarioController {
     public function viewCriarUsuarios(){
         View::render("usuario/create");
     }
-    public function viewEditarUsuarios(){
-        View::render("usuario/edit");
+    public function viewEditarUsuarios($id){
+        View::render("usuario/edit", ["id"=> $id]);
     }
     public function viewExcluirUsuarios(){
        View::render("usuario/delete");

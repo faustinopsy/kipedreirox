@@ -9,17 +9,17 @@ class Rotas
         return [
             "GET" => [
                 // o caminho da URL    o nome do controlle e o metodo do controller
-                "/backend/usuarios" => "UsuarioController@index",
-                "/backend/usuario/criar" => "UsuarioController@viewCriarUsuarios",
-                "/backend/usuario/listar" => "UsuarioController@viewListarUsuarios",
-                "/backend/usuario/editar" => "UsuarioController@viewEditarUsuarios",
-                "/backend/usuario/excluir" => "UsuarioController@viewExcluirUsuarios",
-                "/backend/servico/excluir" => "ServicoController@viewExcluirServicos",
+                "/usuarios" => "UsuarioController@index",
+                "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
+                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
+                "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
+                "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
+                "/servico/excluir/{id}" => "ServicoController@viewExcluirServicos",
             ],
             "POST" =>[
-                "/backend/usuario/salvar" => "UsuarioController@salvarUsuario",
-                "/backend/usuario/atualizar" => "UsuarioController@atualizarUsuario",
-                "/backend/usuario/deletar" => "UsuarioController@deletarUsuario",
+                "/usuario/salvar" => "UsuarioController@salvarUsuario",
+                "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",
+                "/usuario/deletar/{id}" => "UsuarioController@deletarUsuario",
             ]
         ];
     }

@@ -1,1 +1,1 @@
-<div>Sou o edit</div>
+<div>Sou o edit <?php echo $id; ?></div>
