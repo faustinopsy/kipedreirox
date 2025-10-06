@@ -1,5 +1,5 @@
 <div>Sou o create</div>
-<form action="/backend/usuario/salvar" method="post">
+<form action="/backend/usuario/salvar" method="post" enctype="multipart/form-data">
 <label for="Nome">Nome</label>
 <input type="text" name="nome_usuario" id="nome_usuario" required>
 <br>
@@ -15,5 +15,7 @@
     <option value="user">User</option>
 </select>
 <br>
+<label for="imagem" >Imagem</label>
+<input type="file" name="imagem" id="imagem" accept="image/*">
 <button type="submit">Salvar</button>
 </form>
