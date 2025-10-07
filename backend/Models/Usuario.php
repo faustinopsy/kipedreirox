@@ -39,6 +39,13 @@ class Usuario{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    function buscarUsuariosPorID(int $id){
+        $sql = "SELECT * FROM tbl_usuario where id_usuario = :id_usuario";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     function buscarUsuariosPorEMailInativo($email){
         $sql = "SELECT * FROM tbl_usuario where email_usuario = :email and excluido_em IS NOT NULL";
         $stmt = $this->db->prepare($sql);
@@ -53,10 +60,10 @@ class Usuario{
         $senha, 
         $tipo, 
         $status,
-        $foto){
+        $imagem){
         $senha = password_hash($senha, PASSWORD_DEFAULT);
         $sql = "INSERT INTO tbl_usuario (nome_usuario, email_usuario, 
-        senha_usuario, tipo_usuario, status_usuario, foto) 
+        senha_usuario, tipo_usuario, status_usuario, foto_usuario) 
                 VALUES (:nome, :email, :senha, :tipo, :status, :foto)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
@@ -64,7 +71,7 @@ class Usuario{
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':foto', $foto);
+        $stmt->bindParam(':foto', $imagem);
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{

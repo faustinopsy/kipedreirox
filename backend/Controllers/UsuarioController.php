@@ -22,8 +22,8 @@ class UsuarioController {
        if(!empty($erros)){
             Redirect::redirecionarComMensagem("usuario/criar","error", implode("<br>", $erros));
        }
-       
-       $imagem =  $this->gerenciarImagem->salvarArquivo($_FILES['imagem'],'usuario');
+       //novo caminho =                                (arquivo          ,subdiretorio)
+       $imagem =  $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'usuario');
         if($this->usuario->inseriUsuario(
             $_POST["nome_usuario"],
             $_POST["email_usuario"],
@@ -48,14 +48,20 @@ class UsuarioController {
     public function viewCriarUsuarios(){
         View::render("usuario/create");
     }
-    public function viewEditarUsuarios($id){
-        View::render("usuario/edit", ["id"=> $id]);
+    public function viewEditarUsuarios(int $id){
+        $dados = $this->usuario->buscarUsuariosPorID($id);
+        foreach($dados as $usuario){
+                $dados = $usuario;
+        }
+        View::render("usuario/edit", ["usuario"=> $dados ]);
     }
-    public function viewExcluirUsuarios(){
-       View::render("usuario/delete");
+    public function viewExcluirUsuarios($id){
+       View::render("usuario/delete", ["id_usuario"=> $id ]);
     }
     public function relatorioUsuario($id, $data1, $data2){
-        View::render("usuario/relatorio", ["id"=> $id, "data1"=> $data1, "data2"=> $data2]);
+        View::render("usuario/relatorio", 
+            ["id"=> $id, "data1"=> $data1, "data2"=> $data2]
+        );
     }
     
     public function atualizarUsuario(){
