@@ -24,11 +24,61 @@ class Usuario{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-      function buscarUsuariosInativos(){
-        $sql = "SELECT * FROM tbl_usuario where excluido_em IS NOT NULL";
+    function totalDeUsuarios(){
+        $sql = "SELECT count(*) as total FROM tbl_usuario";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    public function paginate(int $page = 1, int $perPage = 15): array{
+        // 1. Obter o total de registros
+        $totalQuery = "SELECT COUNT(*) FROM `tbl_usuario`";
+        $totalStmt = $this->db->query($totalQuery);
+        $total = $totalStmt->fetchColumn();
+
+        // 2. Calcular o offset
+        $offset = ($page - 1) * $perPage;
+
+        // 3. Obter os registros da página atual
+        $dataQuery = "SELECT * FROM `tbl_usuario` LIMIT :limit OFFSET :offset";
+        $dataStmt = $this->db->prepare($dataQuery);
+        $dataStmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+        $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $dataStmt->execute();
+        $dados = $dataStmt->fetchAll(PDO::FETCH_OBJ);
+
+        // 4. Hidratar os resultados
+        $lastPage = ceil($total / $perPage);
+
+        return [
+            'data' => $dados,
+            'total' => (int) $total,
+            'per_page' => (int) $perPage,
+            'current_page' => (int) $page,
+            'last_page' => (int) $lastPage,
+            'from' => $offset + 1,
+            'to' => $offset + count($dados)
+        ];
+    }
+
+    function buscarUsuariosInativos(){
+    $sql = "SELECT * FROM tbl_usuario where excluido_em IS NOT NULL";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // metodo de buscar todos usuario por email read
