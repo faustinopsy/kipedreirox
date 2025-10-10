@@ -43,34 +43,27 @@ class Usuario{
 
 
 
-    public function paginate(int $page = 1, int $perPage = 15): array{
-        // 1. Obter o total de registros
+    public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
         $totalQuery = "SELECT COUNT(*) FROM `tbl_usuario`";
         $totalStmt = $this->db->query($totalQuery);
-        $total = $totalStmt->fetchColumn();
-
-        // 2. Calcular o offset
-        $offset = ($page - 1) * $perPage;
-
-        // 3. Obter os registros da página atual
+        $total_de_registros = $totalStmt->fetchColumn();
+        $offset = ($pagina - 1) * $por_pagina;
         $dataQuery = "SELECT * FROM `tbl_usuario` LIMIT :limit OFFSET :offset";
         $dataStmt = $this->db->prepare($dataQuery);
-        $dataStmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+        $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
         $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $dataStmt->execute();
-        $dados = $dataStmt->fetchAll(PDO::FETCH_OBJ);
-
-        // 4. Hidratar os resultados
-        $lastPage = ceil($total / $perPage);
+        $dados = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
+        $lastPage = ceil($total_de_registros / $por_pagina);
 
         return [
             'data' => $dados,
-            'total' => (int) $total,
-            'per_page' => (int) $perPage,
-            'current_page' => (int) $page,
-            'last_page' => (int) $lastPage,
-            'from' => $offset + 1,
-            'to' => $offset + count($dados)
+            'total' => (int) $total_de_registros,
+            'por_pagina' => (int) $por_pagina,
+            'pagina_atual' => (int) $pagina,
+            'ultima_pagina' => (int) $lastPage,
+            'de' => $offset + 1,
+            'para' => $offset + count($dados)
         ];
     }
 

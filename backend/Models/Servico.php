@@ -1,5 +1,6 @@
 <?php
 namespace App\Kipedreiro\Models;
+use pdo; 
 
 class Servico{
     private $id_servico;
@@ -17,6 +18,7 @@ class Servico{
     public function __construct($db){
        $this->db = $db;
     }
+    
     // metodo de buscar todos os Servicos read
     function buscarServicos(){
         $sql = "SELECT * FROM tbl_servico where excluido_em IS NULL";
