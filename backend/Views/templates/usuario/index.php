@@ -17,7 +17,7 @@
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3><?php echo $Total_ativos; ?></h3>
+          <h3><?php echo $total_ativos; ?></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>Ativos</h4>
@@ -52,7 +52,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($usuarios as $usuario): ?>
+            <?php foreach ($usuarios as $usuario): 
+            $ativo = $usuario['status_usuario'] == 'ativo' ? 'Ativo' : 'Inativo';
+            ?>
                 <tr>
                     <td><?= htmlspecialchars($usuario['nome_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['email_usuario']) ?></td>
@@ -64,7 +66,7 @@
                     </td>
                     <td>
                       <a class="w3-button w3-round w3-red w3-hover-red w3-padding-large w3-margin-right" 
-                      href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>">Excluir</a>
+                      href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>"><?= htmlspecialchars($ativo) ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -41,15 +41,18 @@ class UsuarioController {
         $resultado = $this->usuario->buscarUsuarios();
         var_dump($resultado);
     }  
-    public function viewListarUsuarios($pagina){
+    public function viewListarUsuarios($pagina=1){
+        $pagina = isset($pagina) ? $pagina : 1;
         $dados = $this->usuario->paginacao($pagina);
         $total = $this->usuario->totalDeUsuarios();
+        $total_inativos = $this->usuario->totalDeUsuariosInativos();
+        $total_ativos = $this->usuario->totalDeUsuariosAtivos();
         View::render("usuario/index", 
         [
         "usuarios"=> $dados['data'],
          "total_usuarios"=> $total[0],
-         "total_inativos" => 22,
-         "Total_ativos" => 12,
+         "total_inativos" => $total_inativos[0],
+         "total_ativos" => $total_ativos[0],
          'paginacao' => $dados
         ] 
         );
@@ -65,7 +68,11 @@ class UsuarioController {
         View::render("usuario/edit", ["usuario"=> $dados ]);
     }
     public function viewExcluirUsuarios($id){
-       View::render("usuario/delete", ["id_usuario"=> $id ]);
+       if($this->usuario->excluirUsuario($id)){
+            Redirect::redirecionarComMensagem("usuario/listar","success","Usuário excluído com sucesso!");
+       }else{
+            Redirect::redirecionarComMensagem("usuario/listar","error","Erro ao excluir usuário!");
+       }
     }
     public function relatorioUsuario($id, $data1, $data2){
         View::render("usuario/relatorio", 
@@ -73,11 +80,25 @@ class UsuarioController {
         );
     }
     
-    public function atualizarUsuario(){
-        echo "Atualizar Usuario";
+    public function atualizarUsuario($id){
+        $erros = UsuarioValidador::ValidarEntradas($_POST);
+        if(!empty($erros)){
+            Redirect::redirecionarComMensagem("usuario/editar/"+$id,"error", implode("<br>", $erros));
+        }
+       $this->usuario->atualizarUsuario(
+            $id,  
+            $_POST["nome_usuario"],
+            $_POST["email_usuario"],
+            $_POST["senha_usuario"],
+            $_POST["tipo_usuario"],
+            $_POST["status_usuario"]
+        );
     }
-    public function deletarUsuario(){
-        echo "Deletar Usuario";
+    public function deletarUsuario($id){
+        $dados = $this->usuario->buscarUsuariosPorID($id);
+        var_dump($dados);exit;
+        
+       $this->usuario->excluirUsuario($id);
     }
 
 }

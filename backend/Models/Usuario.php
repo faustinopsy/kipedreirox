@@ -30,17 +30,18 @@ class Usuario{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
-    
-
-
-
-
-
-
-
-
-
-
+    function totalDeUsuariosInativos(){
+        $sql = "SELECT count(*) as total FROM tbl_usuario where excluido_em IS NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+    function totalDeUsuariosAtivos(){
+        $sql = "SELECT count(*) as total FROM tbl_usuario where excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 
 
     public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
@@ -149,12 +150,16 @@ class Usuario{
     }
     // metodo de inativar o usuario delete
     function excluirUsuario($id){
-        $dataatual = date('Y-m-d H:i:s');
+        $usuario = $this->buscarUsuariosPorID($id);
+        $dataatual = $usuario[0]['excluido_em'] == NULL ? date('Y-m-d H:i:s') : NULL;
+        $status = $usuario[0]['status_usuario'] =='ativo' ? 'inativo' : 'ativo';
         $sql = "UPDATE tbl_usuario SET
-         excluido_em = :atual
+         excluido_em = :atual,
+         status_usuario = :stat
          WHERE id_usuario = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':stat', $status);
         $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;
