@@ -42,14 +42,20 @@ class UsuarioController {
         var_dump($resultado);
     }  
     public function viewListarUsuarios($pagina){
+        if(empty($pagina) || $pagina <= 0){
+            $pagina = 1;
+        }
+        $totalAtivos = $this->usuario->totalDeUsuariosAtivos();
         $dados = $this->usuario->paginacao($pagina);
         $total = $this->usuario->totalDeUsuarios();
+        $totalInativos = $this->usuario->totalDeUsuariosInativos();
+        
         View::render("usuario/index", 
         [
         "usuarios"=> $dados['data'],
          "total_usuarios"=> $total[0],
-         "total_inativos" => 22,
-         "Total_ativos" => 12,
+         "total_inativos" => $totalInativos[0],
+         "total_ativos" => $totalAtivos[0],
          'paginacao' => $dados
         ] 
         );

@@ -31,17 +31,19 @@ class Usuario{
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
     
+    function totalDeUsuariosInativos(){
+        $sql = "SELECT count(*) as total FROM tbl_usuario where excluido_em IS NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 
-
-
-
-
-
-
-
-
-
-
+    function totalDeUsuariosAtivos(){
+        $sql = "SELECT count(*) as total FROM tbl_usuario where excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 
     public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
         $totalQuery = "SELECT COUNT(*) FROM `tbl_usuario`";

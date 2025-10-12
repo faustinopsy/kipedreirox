@@ -3,29 +3,20 @@
   </header>
 
   <div class="w3-row-padding w3-margin-bottom">
+    
     <div class="w3-quarter">
-      <div class="w3-container w3-red w3-padding-16">
-        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users  w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>52</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Messages</h4>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <div class="w3-container w3-blue w3-padding-16">
-        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3><?php echo $Total_ativos; ?></h3>
+          <h3><?php echo $total_ativos; ?></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>Ativos</h4>
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-teal w3-padding-16">
-        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $total_inativos; ?></h3>
         </div>
@@ -34,7 +25,7 @@
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+      <div class="w3-container w3-blue w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $total_usuarios; ?></h3>
@@ -52,8 +43,10 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($usuarios as $usuario): ?>
-                <tr>
+            <?php foreach ($usuarios as $usuario): 
+            $cor = $usuario['status_usuario'] == "ativo"? "" : "red";
+            ?>
+                <tr style="background-color: <?php echo $cor; ?>">
                     <td><?= htmlspecialchars($usuario['nome_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['email_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['tipo_usuario']) ?></td>
