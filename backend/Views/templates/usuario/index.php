@@ -35,6 +35,7 @@
       </div>
     </div>
   </div>
+    <a href="/backend/usuario/criar" class="w3-button w3-teal">Criar Usuário</a>
 <?php if (isset($usuarios) && count($usuarios) > 0): ?>
     <table border="1" cellpadding="5" cellspacing="0" class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <thead>
@@ -44,7 +45,8 @@
         </thead>
         <tbody>
             <?php foreach ($usuarios as $usuario): 
-            $cor = $usuario['status_usuario'] == "ativo"? "" : "red";
+            $cor = $usuario['status_usuario'] == "ativo"? "" : "orange";
+            $label_status = $usuario['status_usuario'] == "ativo"? "Desativar" : "Ativar";
             ?>
                 <tr style="background-color: <?php echo $cor; ?>">
                     <td><?= htmlspecialchars($usuario['nome_usuario']) ?></td>
@@ -57,7 +59,7 @@
                     </td>
                     <td>
                       <a class="w3-button w3-round w3-red w3-hover-red w3-padding-large w3-margin-right" 
-                      href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>">Excluir</a>
+                      href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>"><?php echo $label_status; ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

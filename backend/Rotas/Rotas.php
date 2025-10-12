@@ -8,18 +8,27 @@ class Rotas
     {
         return [
             "GET" => [
-                // o caminho da URL    o nome do controlle e o metodo do controller
+                "/" => "Admin\DashboardController@index",
                 "/usuarios" => "UsuarioController@index",
                 "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
+                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
                 "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
                 "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
                 "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
-                "/usuario/{id}/relatorio/{dataInicial}/{dataFinal}" => "UsuarioController@relatorioUsuario",
+
+                '/register' => 'AuthController@register',
+                '/login' => 'AuthController@login',
+                '/logout' => 'AuthController@logout',
+                '/admin/dashboard' => 'Admin\DashboardController@index',
             ],
-            "POST" =>[
+            
+            "POST" => [
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
                 "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",
                 "/usuario/deletar/{id}" => "UsuarioController@deletarUsuario",
+
+                '/register' => 'AuthController@cadastrarUsuario',
+                '/login' => 'AuthController@authenticar',
             ]
         ];
     }
