@@ -20,6 +20,9 @@ class Rotas
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
                 '/admin/dashboard' => 'Admin\DashboardController@index',
+
+                '/esqueci-senha' => 'AuthController@viewEsqueciSenha',
+                '/reseta-senha/{token}' => 'AuthController@viewFormTrocaSenha',
             ],
             
             "POST" => [
@@ -29,6 +32,9 @@ class Rotas
 
                 '/register' => 'AuthController@cadastrarUsuario',
                 '/login' => 'AuthController@authenticar',
+
+                '/esqueci-senha' => 'AuthController@enviarLinkDoEmail',
+                '/reseta-senha' => 'AuthController@resetaSenha',
             ]
         ];
     }

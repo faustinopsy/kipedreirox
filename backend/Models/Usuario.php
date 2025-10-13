@@ -191,4 +191,40 @@ class Usuario{
         }
         return false;
     }
+
+    public function salvarTokenResetaSenha(string $email, string $tokenHash): void {
+        $sql = "INSERT INTO password_resets (email, token, created_at, used_at) 
+                VALUES (?, ?, ?, NULL)
+                ON DUPLICATE KEY UPDATE 
+                token = VALUES(token), 
+                created_at = VALUES(created_at), 
+                used_at = NULL";
+
+        $this->db->prepare($sql)->execute([$email, $tokenHash, date('Y-m-d H:i:s') ]);
+    }
+
+    public function atualizarSenhaPorEmail(string $email, string $novaSenha): void {
+        $novaSenha = password_hash($novaSenha, PASSWORD_DEFAULT);
+        $sql = "UPDATE tbl_usuario SET senha_usuario = ? WHERE email_usuario = ?";
+        $this->db->prepare($sql)->execute([$novaSenha, $email]);
+    }
+
+    public function buscaTokenResetaSenha(string $tokenHash): ?array {
+        $sql = "SELECT * FROM password_resets WHERE token = ? AND used_at IS NULL";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$tokenHash]);
+        $record = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $record ?: null;
+    }
+
+    public function isTokenExpired(string $timestamp): bool {
+        $duracaoEmSegundos = 300; // 5 minutos
+        return (strtotime($timestamp) + $duracaoEmSegundos) < time(); 
+    }
+
+    public function marcarTokenComoUsado(string $email): void {
+        $sql = "UPDATE password_resets SET used_at = ? WHERE email = ?";
+        $this->db->prepare($sql)->execute([date('Y-m-d H:i:s'), $email]);
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Kipedreiro\Database;
 use PDO;
 use PDOException;
 use Exception;
-use App\Kipedreiro\Database\Config;
+use App\Kipedreiro\Config\Config;
 
 class Database {
     private static $instance = null;

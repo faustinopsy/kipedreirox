@@ -2,6 +2,7 @@
 namespace App\Kipedreiro;
 require __DIR__ ."/../vendor/autoload.php";
 use App\Kipedreiro\Rotas\Rotas;
+date_default_timezone_set('UTC');
 
 use Bramus\Router\Router;
 $router = new Router();
