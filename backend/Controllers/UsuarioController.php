@@ -8,9 +8,9 @@ use App\Kipedreiro\Core\Redirect;
 use App\Kipedreiro\Validadores\UsuarioValidador;
 use App\Kipedreiro\Core\FileManager;
 use App\Kipedreiro\Controllers\Admin\AuthenticatedController;
-use App\Kipedreiro\Controllers\Admin\AdminController;
+use App\Kipedreiro\Controllers\Admin\PedreiroController;
 
-class UsuarioController extends AdminController{
+class UsuarioController extends PedreiroController{
     public $usuario;
     public $db;
     public $gerenciarImagem;
