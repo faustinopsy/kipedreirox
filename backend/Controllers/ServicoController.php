@@ -29,14 +29,14 @@ class ServicoController extends AdminController {
         
         $dados = $this->servico->paginacao($pagina, 10);
         
-        View::render("admin/servico/index", [
+        View::render("servico/index", [
             "servicos" => $dados['data'],
             'paginacao' => $dados
         ]);
     }
 
     public function viewCriarServico() {
-        View::render("admin/servico/create");
+        View::render("servico/create");
     }
 
     public function salvarServico() {
@@ -63,7 +63,7 @@ class ServicoController extends AdminController {
             Redirect::redirecionarComMensagem("servico/listar", "error", "Serviço não encontrado.");
         }
         
-        View::render("admin/servico/edit", ["servico" => $servico]);
+        View::render("servico/edit", ["servico" => $servico]);
     }
 
     public function atualizarServico() {
@@ -89,7 +89,7 @@ class ServicoController extends AdminController {
             Redirect::redirecionarComMensagem("servico/listar", "error", "Serviço não encontrado.");
         }
 
-        View::render("admin/servico/delete", ["servico" => $servico]);
+        View::render("servico/delete", ["servico" => $servico]);
     }
 
     public function deletarServico() {

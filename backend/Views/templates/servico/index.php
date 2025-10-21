@@ -12,7 +12,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($servicos as $servico): ?>
+            <?php foreach ($servicos as $servico): 
+                $label = $servico["status_servico"] =='Inativo' ? 'Ativar' : 'Desativar';
+                ?>
                 <tr>
                     <td><img src="/backend/upload/<?= htmlspecialchars($servico['foto_servico']); ?>" style="width:100px;"></td>
                     <td><?= htmlspecialchars($servico['nome_servico']); ?></td>
@@ -20,7 +22,7 @@
                     <td>
                         <a href="/backend/servico/editar/<?= $servico['id_servico']; ?>" class="w3-button w3-tiny w3-khaki">Editar</a>
                         
-                        <a href="/backend/servico/excluir/<?= $servico['id_servico']; ?>" class="w3-button w3-tiny w3-red">Inativar</a>
+                        <a href="/backend/servico/excluir/<?= $servico['id_servico']; ?>" class="w3-button w3-tiny w3-red"><?php echo $label; ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
