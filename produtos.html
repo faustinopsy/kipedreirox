@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos Produtos - Ki-Pedreiro</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .produtos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .produto-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; }
+        .produto-card img { max-width: 100%; height: 200px; object-fit: cover; }
+        .produto-card h3 { margin: 10px 0; }
+        .produto-card p { font-weight: bold; color: #0056b3; }
+        .produto-card button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%; }
+        .carrinho-resumo { margin-top: 40px; padding: 20px; border: 2px solid #007bff; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <header class="cabecalho">
+    </header>
+
+    <main>
+        <section class="produtos" style="padding: 40px 0;">
+            <div class="container">
+                <h2>Nossos Produtos</h2>
+                <div id="produtos-lista" class="produtos-grid">
+                </div>
+            </div>
+        </section>
+
+        <section class="carrinho">
+            <div class="container">
+                <div id="carrinho-resumo" class="carrinho-resumo">
+                    <h2>Seu Carrinho (<span id="cart-count">0</span> itens)</h2>
+                    <ul id="cart-items">
+                    </ul>
+                    <p>Total: R$ <span id="cart-total">0.00</span></p>
+                    <button id="btn-finalizar" style="background: #28a745; color: white; border: none; padding: 15px 25px; cursor: pointer;">Finalizar Pedido</button>
+                    <div id="pedido-status" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const produtosContainer = document.getElementById('produtos-lista');
+            const cartCountEl = document.getElementById('cart-count');
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            const btnFinalizar = document.getElementById('btn-finalizar');
+            const pedidoStatusEl = document.getElementById('pedido-status');
+            
+            let carrinho = [];
+
+            function carregarProdutos() {
+                fetch('/backend/api/produtos')
+                    .then(response => response.json())
+                    .then(json => {
+                        produtosContainer.innerHTML = '';
+                        json.data.forEach(produto => {
+                            const cardHtml = `
+                                <div class="produto-card">
+                                    <img src="${produto.caminho_imagem}" alt="${produto.nome_produto}">
+                                    <h3>${produto.nome_produto}</h3>
+                                    <p>R$ ${parseFloat(produto.preco_produto).toFixed(2)}</p>
+                                    <button class="btn-add-cart" data-id="${produto.id_produto}" data-nome="${produto.nome_produto}" data-preco="${produto.preco_produto}">Adicionar ao Carrinho</button>
+                                </div>
+                            `;
+                            produtosContainer.insertAdjacentHTML('beforeend', cardHtml);
+                        });
+                    });
+            }
+
+            function atualizarCarrinhoView() {
+                cartItemsEl.innerHTML = '';
+                let total = 0;
+                carrinho.forEach(item => {
+                    const itemHtml = `<li>${item.nome} - R$ ${parseFloat(item.preco).toFixed(2)} x ${item.quantidade}</li>`;
+                    cartItemsEl.insertAdjacentHTML('beforeend', itemHtml);
+                    total += item.preco * item.quantidade;
+                });
+                cartCountEl.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+                cartTotalEl.textContent = total.toFixed(2);
+
+                localStorage.setItem('carrinhoKiPedreiro', JSON.stringify(carrinho));
+            }
+
+            produtosContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-add-cart')) {
+                    const id = e.target.dataset.id;
+                    const nome = e.target.dataset.nome;
+                    const preco = parseFloat(e.target.dataset.preco);
+
+                    const itemExistente = carrinho.find(item => item.id === id);
+
+                    if (itemExistente) {
+                        itemExistente.quantidade++;
+                    } else {
+                        carrinho.push({ id, nome, preco, quantidade: 1 });
+                    }
+                    atualizarCarrinhoView();
+                }
+            });
+
+            btnFinalizar.addEventListener('click', function() {
+                if (carrinho.length === 0) {
+                    pedidoStatusEl.textContent = 'Seu carrinho está vazio.';
+                    return;
+                }
+
+                pedidoStatusEl.textContent = 'Enviando pedido...';
+
+                fetch('/backend/api/pedidos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(carrinho)
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.status === 'success') {
+                        pedidoStatusEl.innerHTML = `<p style="color: green;">${json.message}</p>`;
+                        carrinho = [];
+                        localStorage.removeItem('carrinhoKiPedreiro');
+                        atualizarCarrinhoView();
+                    } else {
+                        pedidoStatusEl.innerHTML = `<p style="color: red;">Erro: ${json.message}</p>`;
+                    }
+                })
+                .catch(err => {
+                    pedidoStatusEl.innerHTML = `<p style="color: red;">Erro de conexão ao finalizar o pedido.</p>`;
+                });
+            });
+
+
+            const carrinhoSalvo = localStorage.getItem('carrinhoKiPedreiro');
+            if (carrinhoSalvo) {
+                carrinho = JSON.parse(carrinhoSalvo);
+                atualizarCarrinhoView();
+            }
+            carregarProdutos();
+        });
+    </script>
+</body>
+</html>
