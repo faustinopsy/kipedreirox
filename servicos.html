@@ -78,12 +78,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.querySelector('.servicos__lista');
             if (!container) return; 
-            
-            // A variável basePath foi removida, pois não é mais necessária.
-            
             container.innerHTML = '<h3>Carregando serviços...</h3>';
-            
-            // O URL da API está correto.
             fetch('/backend/api/servicos')
                 .then(response => {
                     if (!response.ok) {
@@ -97,11 +92,7 @@
                     }
                     
                     container.innerHTML = ''; 
-                    
                     json.data.forEach(servico => {
-                        
-                        // --- AJUSTE FEITO AQUI ---
-                        // Agora usamos a chave 'caminho_imagem' que a API fornece.
                         const cardHtml = `
                             <div class="card" data-service="${servico.nome_servico.toLowerCase()}">
                                 <div class="card__frente" style="background-image: url('${servico.caminho_imagem}');">

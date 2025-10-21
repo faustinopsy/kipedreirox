@@ -12,14 +12,14 @@ class Servico
     public function buscarServicosAtivos(){
         $sql = "SELECT nome_servico, descricao_servico, foto_servico 
                 FROM tbl_servico 
-                WHERE status_servico = 'Ativo' 
+                WHERE status_servico = 'ativo' 
                 ORDER BY criado_em DESC LIMIT 4";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function paginacao(int $pagina = 1, int $porPagina = 10){
+    public function paginacao(int $pagina = 1, int $porPagina = 50){
         $offset = ($pagina - 1) * $porPagina;
         $sql = "SELECT * FROM tbl_servico 
                 LIMIT :offset, :porPagina";
@@ -88,10 +88,13 @@ class Servico
     }
 
     public function deletarServico(int $id){
-        // Usando "soft delete" (inativação) que é mais seguro
-        $sql = "UPDATE tbl_servico SET status_servico = 'Inativo' WHERE id_servico = :id";
+        $status = $this->buscarPorID($id);
+        $status = $status['status_servico'] == 'ativo' ? 'Inativo' : 'ativo';
+
+        $sql = "UPDATE tbl_servico SET status_servico = :status WHERE id_servico = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':status', $status);
         return $stmt->execute();
     }
 }
