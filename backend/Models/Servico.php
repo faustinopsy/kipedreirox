@@ -2,95 +2,96 @@
 namespace App\Kipedreiro\Models;
 use pdo; 
 
-class Servico{
-    private $id_servico;
-    private $nome_servico;
-    private $descricao_servico;
-    private $valor_base_servico;
-    private $tipo_usuario;
-    private $foto_servico;
-    private $id_categoria;
-    private $status_servico;
-    private $criado_em;
-    private $atualizado_em;
+class Servico
+{
     private $db;
-    // contrutor inicializa a classe e ou atributos
     public function __construct($db){
-       $this->db = $db;
+        $this->db = $db;
     }
-    
-    // metodo de buscar todos os Servicos read
-    function buscarServicos(){
-        $sql = "SELECT * FROM tbl_servico where excluido_em IS NULL";
+
+    public function buscarServicosAtivos(){
+        $sql = "SELECT nome_servico, descricao_servico, foto_servico 
+                FROM tbl_servico 
+                WHERE status_servico = 'Ativo' 
+                ORDER BY criado_em DESC LIMIT 4";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    // metodo de buscar todos usuario por email read
-    function buscarServicosPorID($id){
-        $sql = "SELECT * FROM tbl_servico where id_servico = :id and excluido_em IS NULL";
+
+    public function paginacao(int $pagina = 1, int $porPagina = 10){
+        $offset = ($pagina - 1) * $porPagina;
+        $sql = "SELECT * FROM tbl_servico 
+                LIMIT :offset, :porPagina";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id); 
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':porPagina', $porPagina, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $totalStmt = $this->db->query("SELECT COUNT(*) FROM tbl_servico");
+        $total = $totalStmt->fetchColumn();
+        $totalPaginas = ceil($total / $porPagina);
+
+        return [
+            'data' => $dados,
+            'total' => (int) $total,
+            'por_pagina' => (int) $porPagina,
+            'pagina_atual' => (int) $pagina,
+            'total_paginas' => (int) $totalPaginas
+        ];
     }
-    
-    // metodo de inserir usuario create
-    function inseriUsuario($nome, $email, $senha, $tipo, $status){
-        $senha = password_hash($senha, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO tbl_servico (nome_usuario, email_usuario, 
-        senha_usuario, tipo_usuario, status_usuario) 
-                VALUES (:nome, :email, :senha, :tipo, :status)";
+
+    public function inserirServico(string $nome, string $descricao, string $foto){
+        $sql = "INSERT INTO tbl_servico (nome_servico, descricao_servico, foto_servico, status_servico, criado_em) 
+                VALUES (:nome, :descricao, :foto, 'Ativo', NOW())";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->bindParam(':tipo', $tipo);
-        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':descricao', $descricao);
+        $stmt->bindParam(':foto', $foto);
+        
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{
             return false;
         }
     }
-    // metodo de atualizar o usuario update
-    function atualizarUsuario($id, $nome, $email, $senha, $tipo, $status){
-        $senha = password_hash($senha, PASSWORD_DEFAULT);
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_servico SET nome_usuario = :nome,
-         email_usuario = :email, 
-         senha_usuario = :senha, 
-         tipo_usuario = :tipo,
-         status_usuario = :status,
-         atualizado_em = :atual
-         WHERE id_usuario = :id";
+
+    public function buscarPorID(int $id){
+        $sql = "SELECT * FROM tbl_servico WHERE id_servico = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->bindParam(':tipo', $tipo);
-        $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    // metodo de deletar o usuario delete
-    function excluirUsuario($id){
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_servico SET
-         excluido_em = :atual
-         WHERE id_usuario = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
+
+    public function atualizarServico(int $id, string $nome, string $descricao, ?string $foto){
+        $sql = "UPDATE tbl_servico SET 
+                    nome_servico = :nome, 
+                    descricao_servico = :descricao, 
+                    atualizado_em = NOW()";
+        if ($foto) {
+            $sql .= ", foto_servico = :foto";
         }
+        
+        $sql .= " WHERE id_servico = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':descricao', $descricao);
+        if ($foto) {
+            $stmt->bindParam(':foto', $foto);
+        }
+        
+        return $stmt->execute();
+    }
+
+    public function deletarServico(int $id){
+        // Usando "soft delete" (inativação) que é mais seguro
+        $sql = "UPDATE tbl_servico SET status_servico = 'Inativo' WHERE id_servico = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
