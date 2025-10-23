@@ -7,12 +7,18 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .produtos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .produto-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; }
+        .produto-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; position: relative; height: 200px;}
         .produto-card img { max-width: 100%; height: 200px; object-fit: cover; }
         .produto-card h3 { margin: 10px 0; }
         .produto-card p { font-weight: bold; color: #0056b3; }
-        .produto-card button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%; }
-        .carrinho-resumo { margin-top: 40px; padding: 20px; border: 2px solid #007bff; border-radius: 8px; }
+        .produto-card button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%;position: absolute; left:0; bottom: 0;}
+        .carrinho-resumo { margin-top: 40px; padding: 20px;  }
+        main { margin-left: 320px; padding: 20px; }
+        aside{ position: fixed; left: 0; top: 0; width: 300px; height: 100vh ;background-color: rgb(255, 255, 255); border-right: 5px solid #007bff; overflow-y: auto; }
+        #btn-finalizar{ background: #28a745; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%; margin-top: 10px;}
+        #cart-subtotal{position: fixed; left: 0; top: 0;  background: #007bff; color: white; border: none; width: 300px; padding: 10px 15px; cursor: pointer;}
+        .cart-item{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding: 10px 0}
+        .btn-remove-cart{ background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer;}
     </style>
 </head>
 <body>
@@ -27,20 +33,21 @@
                 </div>
             </div>
         </section>
-
+    </main>
+    <aside>
         <section class="carrinho">
             <div class="container">
                 <div id="carrinho-resumo" class="carrinho-resumo">
-                    <h2>Seu Carrinho (<span id="cart-count">0</span> itens)</h2>
+                    <h3>Seu Carrinho (<span id="cart-count">0</span> itens)</h3>
                     <ul id="cart-items">
                     </ul>
-                    <p>Total: R$ <span id="cart-total">0.00</span></p>
-                    <button id="btn-finalizar" style="background: #28a745; color: white; border: none; padding: 15px 25px; cursor: pointer;">Finalizar Pedido</button>
-                    <div id="pedido-status" style="margin-top: 15px;"></div>
+                    <div id="cart-subtotal">Total: R$ <span id="cart-total">0.00</span>
+                    <button id="btn-finalizar">Finalizar Pedido</button>
+                    <div id="pedido-status" style="margin-top: 15px;"></div></div>
                 </div>
             </div>
         </section>
-    </main>
+    </aside>
 
     <footer class="rodape">
     </footer>

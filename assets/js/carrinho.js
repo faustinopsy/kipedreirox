@@ -2,11 +2,10 @@ function renderizarCarrinho() {
     cartItemsEl.innerHTML = '';
     let total = 0;
     let totalItens = 0;
-
     carrinho.forEach(item => {
         const precoItemTotal = (item.preco * item.quantidade).toFixed(2);
         const itemHtml = `
-            <li>
+            <li class="cart-item">
                 ${item.nome} - R$ ${parseFloat(item.preco).toFixed(2)} x ${item.quantidade} = R$ ${precoItemTotal}
                 <button class="btn-remove-cart w3-button w3-tiny w3-red w3-padding-small" 
                         data-id="${item.id}" 

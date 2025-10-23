@@ -32,6 +32,8 @@ class Rotas
             ],
             
             "POST" => [
+                 '/api/pedidos' => 'PublicApiController@salvarPedido',
+                 
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
                 "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",
                 "/usuario/deletar/{id}" => "UsuarioController@deletarUsuario",
@@ -43,7 +45,7 @@ class Rotas
                 '/servico/atualizar' => 'ServicoController@atualizarServico',
                 '/servico/deletar' => 'ServicoController@deletarServico',
 
-                '/api/pedidos' => 'PublicApiController@salvarPedido',
+               
             ]
         ];
     }
