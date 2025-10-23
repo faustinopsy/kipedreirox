@@ -8,10 +8,8 @@ class Pedido{
     public function __construct($db) {
         $this->db = $db;
     }
-
     public function criarPedido(array $itensCarrinho){
         $this->db->beginTransaction();
-
         try {
             $valorTotalCalculado = 0;
             foreach ($itensCarrinho as $item) {
@@ -22,13 +20,10 @@ class Pedido{
             $stmtPedido = $this->db->prepare($sqlPedido);
             $stmtPedido->bindParam(':valor_total', $valorTotalCalculado);
             $stmtPedido->execute();
-
             $idPedido = $this->db->lastInsertId();
-
             $sqlItem = "INSERT INTO tbl_pedido_itens (id_pedido, id_produto, quantidade, preco_unitario) 
                         VALUES (:id_pedido, :id_produto, :quantidade, :preco_unitario)";
             $stmtItem = $this->db->prepare($sqlItem);
-
             foreach ($itensCarrinho as $item) {
                 $stmtItem->bindParam(':id_pedido', $idPedido, PDO::PARAM_INT);
                 $stmtItem->bindParam(':id_produto', $item['id'], PDO::PARAM_INT);
@@ -39,7 +34,6 @@ class Pedido{
             $this->db->commit();
 
             return (int)$idPedido;
-
         } catch (\Exception $e) {
             $this->db->rollBack();
             return false;

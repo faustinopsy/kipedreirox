@@ -1,10 +1,8 @@
 <?php
 namespace App\Kipedreiro\Models;
 use PDO;
-
 class Produto{
     private $db;
-
     public function __construct($db) {
         $this->db = $db;
     }

@@ -34,8 +34,7 @@ class PublicApiController{
         exit;
     }
 
-    public function getProdutos()
-    {
+    public function getProdutos(){
         header('Content-Type: application/json');
         $dados = $this->produtoModel->buscarProdutosAtivos();
         http_response_code(200);
