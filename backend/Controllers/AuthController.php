@@ -42,33 +42,33 @@ class AuthController{
             $this->session->set('usuario_nome', $usuario['nome_usuario']);
             $this->session->set('usuario_tipo', $usuario['tipo_usuario']);
             
-            Redirect::redirecionarPara('/admin/dashboard'); 
+            Redirect::redirecionarPara('admin/dashboard'); 
         } else {
-            Redirect::redirecionarComMensagem('/backend/login', 'error', 'E-mail ou senha incorretos.');
+            Redirect::redirecionarComMensagem('login', 'error', 'E-mail ou senha incorretos.');
         }
     }
 
     public function cadastrarUsuario(): void {
         $erros = UsuarioValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem('/register', 'erros', implode("<br>", $erros));
+            Redirect::redirecionarComMensagem('register', 'erros', implode("<br>", $erros));
         }
         $nome = $_POST['nome_usuario'] ?? null;
         $email = $_POST['email_usuario'] ?? null;
         $senha = $_POST['senha_usuario'] ?? null;
         $senha_confirm = $_POST['senha_confirm'] ?? null;
         if ($senha != $senha_confirm) {
-            Redirect::redirecionarComMensagem('/register', 'erros', 'As senhas não conferem.');
+            Redirect::redirecionarComMensagem('register', 'erros', 'As senhas não conferem.');
         }
         
         if (!empty($this->usuarioModel->buscarUsuariosPorEMail($email))){
-            Redirect::redirecionarComMensagem('/register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
+            Redirect::redirecionarComMensagem('register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
         }
         $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'usuario', 'Ativo', 'null');
         if ($novoUsuarioId) {
-            Redirect::redirecionarComMensagem('/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
+            Redirect::redirecionarComMensagem('login', 'success', 'Cadastro realizado! Por favor, faça o login.');
         } else {
-            Redirect::redirecionarComMensagem('/register', 'error', 'Erro no servidor. Tente novamente.');
+            Redirect::redirecionarComMensagem('register', 'error', 'Erro no servidor. Tente novamente.');
         }
     }
 
