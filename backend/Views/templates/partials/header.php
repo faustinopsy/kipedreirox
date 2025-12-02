@@ -1,6 +1,7 @@
 <?php
 use App\Kipedreiro\Core\Flash;
 use App\Kipedreiro\Core\Session;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,6 +19,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body class="w3-light-grey">
  <?php
     $session = new Session();
+    $nomeUsuario = $session->get('usuario_nome');
     if ($session->has('usuario_id')): ?>
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
