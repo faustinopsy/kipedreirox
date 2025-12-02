@@ -12,9 +12,15 @@ class ApiUsuarioController{
     }
 
     public function getUsuarios() {
-        $dados = $this->usuarioModel->paginacao(1,5);
+        $dados = $this->usuarioModel->paginacaoNova(1,5);
         foreach ($dados['data'] as &$usuario) {
             unset($usuario['senha_usuario']);
+            unset($usuario['total']);
+            unset($usuario['por_pagina']);
+            unset($usuario['pagina_atual']);
+            unset($usuario['ultima_pagina']);
+            unset($usuario['de']);
+            unset($usuario['para']);
         }
         
         header('Content-Type: application/json');
