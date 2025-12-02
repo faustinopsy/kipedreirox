@@ -25,6 +25,7 @@ class Rotas
                 '/servico/listar/{pagina}' => 'ServicoController@viewListarServicos',
                 '/servico/criar' => 'ServicoController@viewCriarServico',
                 '/api/servicos' => 'PublicApiController@getServicos',
+                '/api/usuarios' => 'ApiUsuarioController@getUsuarios',
                 '/servico/editar/{id}' => 'ServicoController@viewEditarServico',
                 '/servico/excluir/{id}' => 'ServicoController@viewExcluirServico',
 
