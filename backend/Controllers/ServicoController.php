@@ -27,12 +27,17 @@ class ServicoController extends AdminController {
     public function viewListarServicos($pagina = 1) {
         if (empty($pagina) || $pagina <= 0) $pagina = 1;
         
-        $dados = $this->servico->paginacao($pagina, 50);
-        
+        $dados = $this->servico->paginacao($pagina, 10);
+        $total = $this->servico->totalDeServicos();
+        $totalInativos = $this->servico->totalDeServicosInativos();
+        $totalAtivos = $this->servico->totalDeServicosAtivos();
         View::render("servico/index", [
-            "servicos" => $dados['data'],
-            'paginacao' => $dados
-        ]);
+        "servicos"=> $dados['data'],
+         "total_servicos"=> $total[0],
+         "total_inativos" => $totalInativos[0],
+         "total_ativos" => $totalAtivos[0],
+         'paginacao' => $dados
+        ] );
     }
 
     public function viewCriarServico() {

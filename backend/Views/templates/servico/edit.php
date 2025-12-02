@@ -17,7 +17,7 @@
 
         <p>
             <label class="w3-text-blue"><b>Foto Principal (Atual)</b></label><br>
-            <img src="/upload/servicos/<?= htmlspecialchars($servico['foto_servico']); ?>" style="width:150px; border: 1px solid #ccc; padding: 4px;">
+            <img src="/backend/upload/<?= htmlspecialchars($servico['foto_servico']); ?>" style="width:150px; border: 1px solid #ccc; padding: 4px;">
         </p>
 
         <p>
