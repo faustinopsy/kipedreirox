@@ -3,31 +3,17 @@ namespace App\Kipedreiro\Controllers;
 
 use App\Kipedreiro\Database\Database;
 use App\Kipedreiro\Models\Usuario;
-
+use App\Kipedreiro\Core\ChaveApi;
 class APIUsuarioController{
     private $usuarioModel;
     private $chaveAPI;
     public function __construct(){
         $db = Database::getInstance();
         $this->usuarioModel = new Usuario($db);
-        $this->chaveAPI = "9D67A537A9329E0F1E9D088A1C991F1CC728EA87D3D154B409ED3320EA940303";
-    }
-    private function buscaChaveAPI(){
-        $headers = getallheaders();
-        if (!isset($headers["Authorization"])) {
-            return false;
-        }
-        $token = explode(" ", $headers["Authorization"])[1];
-        return $token === $this->chaveAPI;
+        $this->chaveAPI = new ChaveApi();
+        $this->chaveAPI->validarChave();
     }
     public function getUsuarios($pagina=0) {
-        if (!$this->buscaChaveAPI()) {
-            http_response_code(500);
-            echo json_encode([
-                'status' => 'error', 'message' => 'chave de API inválida'
-            ]);
-            exit;
-        } 
         // condição ternaria é igual if else
         $registros_por_pagina = $pagina===0 ? 200 : 5;
         $pagina = $pagina===0 ? 1 : (int)$pagina;
@@ -45,7 +31,6 @@ class APIUsuarioController{
         
         exit;
     }
-
     public function salvarUsuario() {
         header('Content-Type: application/json');
         $usuario = json_decode(file_get_contents('php://input'), true);
