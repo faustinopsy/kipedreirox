@@ -8,13 +8,14 @@ class APIUsuarioController{
     private $usuarioModel;
     private $chaveAPI;
     public function __construct(){
-        $db = Database::getInstance();
-        $this->usuarioModel = new Usuario($db);
         $this->chaveAPI = new ChaveApi();
         $this->chaveAPI->validarChave();
+        $db = Database::getInstance();
+        $this->usuarioModel = new Usuario($db);
+        
     }
+    
     public function getUsuarios($pagina=0) {
-        // condição ternaria é igual if else
         $registros_por_pagina = $pagina===0 ? 200 : 5;
         $pagina = $pagina===0 ? 1 : (int)$pagina;
         $dados = $this->usuarioModel->paginacaoAPI($pagina, $registros_por_pagina);
