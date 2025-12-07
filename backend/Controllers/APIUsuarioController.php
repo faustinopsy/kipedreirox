@@ -38,6 +38,7 @@ class APIUsuarioController{
             echo json_encode(['status' => 'error', 'message' => 'Nenhum item recebido no carrinho.']);
             exit;
         }
+        
         $novoPedidoId = $this->usuarioModel->inseriUsuario(
             $usuario["nome_usuario"],
             $usuario["email_usuario"],
