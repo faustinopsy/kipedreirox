@@ -45,7 +45,7 @@ class APIUsuarioController{
             $usuario["email_usuario"],
             $usuario["senha_usuario"] || '',
             $usuario["tipo_usuario"],
-            $usuario["status_usuario"]
+            $usuario["status_usuario"] || 'Ativo'
         );
         if ($novoPedidoId) {
             http_response_code(201);
