@@ -43,7 +43,7 @@ class APIUsuarioController{
         $novoPedidoId = $this->usuarioModel->inseriUsuario(
             $usuario["nome_usuario"],
             $usuario["email_usuario"],
-            $usuario["senha_usuario"],
+            $usuario["senha_usuario"] || '',
             $usuario["tipo_usuario"],
             $usuario["status_usuario"]
         );
