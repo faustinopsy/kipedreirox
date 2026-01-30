@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # 2. Redireciona TUDO para o index.php, preservando a query string original (QSA)
+    # A URL amig찼vel (ex: /menu/detalhes) se torna um par창metro do PATH_INFO
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>

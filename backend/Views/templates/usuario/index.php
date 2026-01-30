@@ -54,12 +54,16 @@
                     <td><?= htmlspecialchars($usuario['tipo_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['status_usuario']) ?></td>
                     <td>
-                      <a class="w3-button w3-round w3-blue w3-hover-red w3-padding-large w3-margin-right" 
+                      <a class="w3-button w3-round w3-blue w3-hover-blue w3-padding-small w3-margin-right" 
                       href="/backend/usuario/editar/<?= htmlspecialchars($usuario['id_usuario']) ?>">Editar</a>
                     </td>
                     <td>
-                      <a class="w3-button w3-round w3-red w3-hover-red w3-padding-large w3-margin-right" 
-                      href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>"><?php echo $label_status; ?></a>
+                        <form action="/backend/usuario/deletar" method="POST" style="display:inline;" onsubmit="return confirm('Deseja realmente <?= strtolower($label_status); ?> este usuário?');">
+                            <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario']; ?>">
+                            <button type="submit" class="w3-button w3-round w3-padding-small <?= $usuario["status_usuario"] == 'ativo' ? 'w3-red' : 'w3-green' ?>">
+                                <?php echo $label_status; ?>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

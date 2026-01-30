@@ -1,0 +1,54 @@
+/* Estilos para formulários */
+.form-contato {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--cor-fundo);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--cor-texto);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--cor-cinza-claro);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: var(--fonte-principal);
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+.form-input textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Feedback messages */
+#msg-feedback {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-contato {
+        margin: 20px;
+        padding: 20px;
+    }
+}

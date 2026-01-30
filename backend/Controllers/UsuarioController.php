@@ -86,7 +86,36 @@ class UsuarioController extends AdminController{
         echo "Atualizar Usuario";
     }
     public function deletarUsuario(){
-        echo "Deletar Usuario";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_usuario'])) {
+            $id = (int)$_POST['id_usuario'];
+            
+            // Buscar usuário para verificar status atual
+            $dados = $this->usuario->buscarUsuariosPorID($id);
+            
+            if (!empty($dados)) {
+                $usuario = $dados[0];
+                
+                // Se excluido_em for nulo, o usuário está ativo, então inativa
+                if ($usuario['excluido_em'] === null) {
+                    if ($this->usuario->excluirUsuario($id)) {
+                        Redirect::redirecionarComMensagem("usuario/listar", "success", "Usuário inativado com sucesso!");
+                    } else {
+                        Redirect::redirecionarComMensagem("usuario/listar", "error", "Erro ao inativar usuário.");
+                    }
+                } else {
+                    // Se não for nulo, está inativo, então ativa
+                    if ($this->usuario->ativarUsuario($id)) {
+                        Redirect::redirecionarComMensagem("usuario/listar", "success", "Usuário ativado com sucesso!");
+                    } else {
+                        Redirect::redirecionarComMensagem("usuario/listar", "error", "Erro ao ativar usuário.");
+                    }
+                }
+            } else {
+                Redirect::redirecionarComMensagem("usuario/listar", "error", "Usuário não encontrado.");
+            }
+        } else {
+            Redirect::redirecionarComMensagem("usuario/listar", "error", "Requisição inválida.");
+        }
     }
 
 }
