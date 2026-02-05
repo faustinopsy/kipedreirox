@@ -44,7 +44,7 @@ class AuthController{
             
             Redirect::redirecionarPara('/admin/dashboard'); 
         } else {
-            Redirect::redirecionarComMensagem('/backend/login', 'error', 'E-mail ou senha incorretos.');
+            Redirect::redirecionarComMensagem('/login', 'error', 'E-mail ou senha incorretos.');
         }
     }
 

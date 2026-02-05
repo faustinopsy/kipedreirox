@@ -39,7 +39,7 @@ class Rotas
                  
                 "/api/usuariosalvar" => "APIUsuarioController@salvarUsuario",
                 "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",
-                "/usuario/deletar/{id}" => "UsuarioController@deletarUsuario",
+                "/usuario/deletar" => "UsuarioController@deletarUsuario",
 
                 '/register' => 'AuthController@cadastrarUsuario',
                 '/login' => 'AuthController@authenticar',

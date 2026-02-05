@@ -36,7 +36,25 @@ foreach ($rotas as $metodoHttp => $rota) {
 }
 $router->set404(function () {
     header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-    echo '404, Rota não Encontrada!';
+    echo '
+    <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+        <h1>404</h1>
+        <p>Página não Encontrada!</p>
+        <a href="/">Voltar para o Início</a>
+    </div>';
 });
 
-$router->run();
+try {
+    $router->run();
+} catch (\Throwable $e) {
+    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error');
+    // Log do erro (opcional, mas recomendado)
+    error_log($e->getMessage());
+    
+    echo '
+    <div style="font-family: sans-serif; text-align: center; padding: 50px; color: #721c24; background-color: #f8d7da;">
+        <h1>Erro Interno (500)</h1>
+        <p>Ocorreu um erro ao processar sua solicitação.</p>
+        <p><small>' . htmlspecialchars($e->getMessage()) . '</small></p>
+    </div>';
+}
