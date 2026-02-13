@@ -34,6 +34,7 @@ class Rotas
             ],
             
             "POST" => [
+                '/api/servicos' => 'PublicApiController@salvarServicoAPI',
                 '/api/pedidos' => 'PublicApiController@salvarPedido',
                  '/api/contato' => 'ContactController@send',
                  
