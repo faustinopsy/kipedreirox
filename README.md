@@ -76,7 +76,7 @@ O projeto utiliza uma **arquitetura Híbrida** composta por:
 ### Instalação
 1.  **Clone o repositório**:
     ```bash
-    git clone <url-do-projeto>
+    git clone https://github.com/FaustinoPSY/kipedreirox.git
     ```
 
 2.  **Instale as dependências**:
