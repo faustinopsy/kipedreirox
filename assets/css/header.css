@@ -31,7 +31,7 @@
 
 .cabecalho__principal {
     background-color: var(--cor-fundo);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
 
@@ -87,5 +87,11 @@
 }
 
 .cabecalho__link--ativo::after {
-     transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+/* Hide mobile elements on desktop */
+.menu-toggle,
+.menu-overlay {
+    display: none;
 }
