@@ -1,114 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nossos Serviços - Ki-Pedreiro</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .servicos-hero {
+            background-color: #222;
+            color: #fff;
+            padding: 80px 20px 40px;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/img/bricklayer-adding-cement-top-bricks-min.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 60px;
+        }
+
+        .servicos-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--cor-laranja);
+        }
+    </style>
 </head>
+
 <body>
-<header class="cabecalho">
-        <div class="cabecalho__barra-superior">
-            <div class="container">
-                <span><img src="assets/img/icon/001-phone-receiver-silhouette.png" alt="Ícone Telefone"> (11) 9 4802-0922</span>
-                <span><img src="assets/img/icon/019-email-1.png" alt="Ícone Email"> contato@kipedreiro.com.br</span>
-                <a href="#" class="cabecalho__login"><img src="assets/img/icon/017-profile-user-1.png" alt="Ícone Login"> Login</a>
-            </div>
-        </div>
-        <nav class="cabecalho__principal">
-            <div class="container">
-                <a href="index.html">
-                    <img src="/assets/img/logo/KiPedreiro.png" alt="Logo Ki-Pedreiro" class="cabecalho__logo">
-                </a>
-                <ul class="cabecalho__menu">
-                    <li><a href="index.html" class="cabecalho__link cabecalho__link--ativo">Home</a></li>
-                    <li><a href="#" class="cabecalho__link">Sobre</a></li>
-                    <li><a href="projetos.html" class="cabecalho__link">Portfólio</a></li>
-                    <li><a href="servicos.html" class="cabecalho__link">Serviços</a></li>
-                    <li><a href="#" class="cabecalho__link">Área de atuação</a></li>
-                    <li><a href="contato.html" class="cabecalho__link">Contato</a></li>
-                </ul>
-            </div>
-        </nav>
+    <header class="cabecalho" id="navbar">
     </header>
-<main>
-    <section class="servicos">
+    <main>
+        <section class="servicos-hero">
             <div class="container">
-                <div class="servicos__lista">
-                    <div class="card" data-service="alvenaria">
-                        <div class="card__frente" style="background-image: url('assets/img/building-teamwork-partnership-min.jpg');">
-                            <h3 class="card__titulo">ALVENARIA</h3>
-                        </div>
-                        <div class="card__verso">
-                            <h3 class="card__titulo--verso">ALVENARIA</h3>
-                            <p class="card__descricao">Construção de paredes, muros e estruturas com segurança e qualidade.</p>
-                        </div>
-                    </div>
-                    <div class="card" data-service="reformas">
-                         <div class="card__frente" style="background-image: url('assets/img/bricklaying-construction-worker-building-brick-wall-min.jpg');">
-                            <h3 class="card__titulo">REFORMAS</h3>
-                        </div>
-                        <div class="card__verso">
-                            <h3 class="card__titulo--verso">REFORMAS</h3>
-                            <p class="card__descricao">Preparamos sua obra do básico ao bom acabamento, agilidade e excelência.</p>
-                        </div>
-                    </div>
-                    <div class="card" data-service="eletrica">
-                         <div class="card__frente" style="background-image: url('assets/img/electrician-installer-with-tool-his-hands-working-with-cable-construction-site-min.jpg');">
-                            <h3 class="card__titulo">ELÉTRICA</h3>
-                        </div>
-                        <div class="card__verso">
-                            <h3 class="card__titulo--verso">ELÉTRICA</h3>
-                            <p class="card__descricao">Instalações e manutenções elétricas prediais e comerciais na sua obra.</p>
-                        </div>
-                    </div>
-                    <div class="card" data-service="gestao">
-                         <div class="card__frente" style="background-image: url('assets/img/bricklayer-adding-cement-top-bricks-min.jpg');">
-                            <h3 class="card__titulo">GESTÃO</h3>
-                        </div>
-                        <div class="card__verso">
-                            <h3 class="card__titulo--verso">GESTÃO</h3>
-                            <p class="card__descricao">Acompanhamos sua obra da compra de materiais à gestão da mão de obra.</p>
-                        </div>
-                    </div>
-                </div>
-                
+                <h1>Nossos Serviços</h1>
+                <p>Soluções completas para sua obra, do alicerce ao acabamento.</p>
             </div>
         </section>
-            </main>
 
-    <footer class="rodape">
-        <div class="container">
-            <div class="rodape__grid">
-                <div class="rodape__coluna">
-                    <h4 class="rodape__titulo">Navegação</h4>
-                    <ul class="rodape__lista-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#">Sobre Nós</a></li>
-                        <li><a href="servicos.html">Serviços</a></li>
-                        <li><a href="projetos.html">Portfólio</a></li>
-                        <li><a href="#">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="rodape__coluna">
-                    <h4 class="rodape__titulo">Contato</h4>
-                    <p>(11) 9 4802-0922</p>
-                    <p>contato@kipedreiro.com.br</p>
-                    <p>Rua Exemplo, 123 - São Paulo, SP</p>
-                </div>
-                 <div class="rodape__coluna">
-                    <h4 class="rodape__titulo">Siga-nos</h4>
-                    <div class="rodape__redes-sociais">
-                        <a href="#"><img src="assets/img/icon/facebook.svg" alt="Facebook"></a>
-                        <a href="#"><img src="assets/img/icon/instagram.svg" alt="Instagram"></a>
-                        <a href="#"><img src="assets/img/icon/linkedin.svg" alt="LinkedIn"></a>
-                    </div>
-                </div>
+        <section class="servicos">
+            <div class="container">
+                <div class="servicos__lista"></div>
             </div>
-            <div class="rodape__direitos">
-                <p>&copy; 2025 Ki-Pedreiro. Todos os direitos reservados.</p>
-            </div>
-        </div>
+        </section>
+    </main>
+
+    <footer class="rodape" id="footer">
     </footer>
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/rodape.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.querySelector('.servicos__lista');
+            if (!container) return;
+            container.innerHTML = '<h3>Carregando serviços...</h3>';
+            fetch('/backend/api/servicos')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Falha ao carregar dados da rede.');
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    if (json.status !== 'success' || !json.data) {
+                        throw new Error('API retornou um erro: ' + (json.message || 'Formato inválido'));
+                    }
+
+                    container.innerHTML = '';
+                    json.data.forEach(servico => {
+                        const cardHtml = `
+                            <div class="card" data-service="${servico.nome_servico.toLowerCase()}">
+                                <div class="card__frente" style="background-image: url('${servico.caminho_imagem}');">
+                                    <h3 class="card__titulo">${servico.nome_servico.toUpperCase()}</h3>
+                                </div>
+                                <div class="card__verso">
+                                    <h3 class="card__titulo--verso">${servico.nome_servico.toUpperCase()}</h3>
+                                    <p class="card__descricao">${servico.descricao_servico}</p>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', cardHtml);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar serviços:', error);
+                    container.innerHTML = '<p style="color: red;">Não foi possível carregar os serviços no momento. Tente novamente mais tarde.</p>';
+                });
+        });
+    </script>
 </body>
+
 </html>

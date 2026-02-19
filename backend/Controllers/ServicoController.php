@@ -1,0 +1,114 @@
+<?php
+namespace App\Kipedreiro\Controllers;
+
+use App\Kipedreiro\Models\Servico;
+use App\Kipedreiro\Database\Database;
+use App\Kipedreiro\Core\View;
+use App\Kipedreiro\Core\Redirect;
+use App\Kipedreiro\Core\FileManager;
+use App\Kipedreiro\Controllers\Admin\AdminController;
+
+class ServicoController extends AdminController {
+    public $servico;
+    public $db;
+    public $gerenciarImagem;
+
+    public function __construct() {
+        parent::__construct();
+        $this->db = Database::getInstance();
+        $this->servico = new Servico($this->db);
+        $this->gerenciarImagem = new FileManager('upload');
+    }
+
+    public function index() {
+        $this->viewListarServicos();
+    }
+
+    public function viewListarServicos($pagina = 1) {
+        if (empty($pagina) || $pagina <= 0) $pagina = 1;
+
+        $dados = $this->servico->paginacao($pagina, 50);
+
+        View::render("servico/index", [
+            "servicos"  => $dados['data'],
+            'paginacao' => $dados
+        ]);
+    }
+
+    public function viewCriarServico() {
+        View::render("servico/create");
+    }
+
+    public function salvarServico() {
+        if (empty($_POST["nome_servico"]) || empty($_FILES['foto_servico']['name'])) {
+            Redirect::redirecionarComMensagem("servico/criar", "error", "Nome e Foto são obrigatórios.");
+            return;
+        }
+
+        $imagem     = $this->gerenciarImagem->salvarArquivo($_FILES['foto_servico'], 'servicos');
+        $tipo       = $_POST['tipo_servico']       ?? 'trabalho';
+        $valor_base = !empty($_POST['valor_base_servico'])
+                        ? (float) str_replace(',', '.', $_POST['valor_base_servico'])
+                        : null;
+
+        if ($this->servico->inserirServico(
+            $_POST["nome_servico"],
+            $_POST["descricao_servico"] ?? '',
+            $imagem,
+            $tipo,
+            $valor_base
+        )) {
+            Redirect::redirecionarComMensagem("servico/listar", "success", "Serviço cadastrado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("servico/criar", "error", "Erro ao cadastrar serviço.");
+        }
+    }
+
+    public function viewEditarServico(int $id) {
+        $servico = $this->servico->buscarPorID($id);
+        if (!$servico) {
+            Redirect::redirecionarComMensagem("servico/listar", "error", "Serviço não encontrado.");
+            return;
+        }
+        View::render("servico/edit", ["servico" => $servico]);
+    }
+
+    public function atualizarServico() {
+        $id         = (int) $_POST['id_servico'];
+        $nome       = $_POST['nome_servico'];
+        $descricao  = $_POST['descricao_servico'] ?? '';
+        $tipo       = $_POST['tipo_servico']       ?? 'trabalho';
+        $valor_base = !empty($_POST['valor_base_servico'])
+                        ? (float) str_replace(',', '.', $_POST['valor_base_servico'])
+                        : null;
+        $imagem     = null;
+
+        if (isset($_FILES['foto_servico']) && $_FILES['foto_servico']['error'] == 0 && !empty($_FILES['foto_servico']['name'])) {
+            $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['foto_servico'], 'servicos');
+        }
+
+        if ($this->servico->atualizarServico($id, $nome, $descricao, $imagem, $tipo, $valor_base)) {
+            Redirect::redirecionarComMensagem("servico/listar", "success", "Serviço atualizado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("servico/editar/" . $id, "error", "Erro ao atualizar serviço.");
+        }
+    }
+
+    public function viewExcluirServico(int $id) {
+        $servico = $this->servico->buscarPorID($id);
+        if (!$servico) {
+            Redirect::redirecionarComMensagem("servico/listar", "error", "Serviço não encontrado.");
+            return;
+        }
+        View::render("servico/delete", ["servico" => $servico]);
+    }
+
+    public function deletarServico() {
+        $id = (int) $_POST['id_servico'];
+        if ($this->servico->deletarServico($id)) {
+            Redirect::redirecionarComMensagem("servico/listar", "success", "Serviço inativado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("servico/listar", "error", "Erro ao inativar serviço.");
+        }
+    }
+}

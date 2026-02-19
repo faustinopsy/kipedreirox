@@ -1,82 +1,153 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossos Serviços - Ki-Pedreiro</title>
+    <title>Contato - Ki-Pedreiro</title>
     <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-<header class="cabecalho">
-        <div class="cabecalho__barra-superior">
-            <div class="container">
-                <span><img src="assets/img/icon/001-phone-receiver-silhouette.png" alt="Ícone Telefone"> (11) 9 4802-0922</span>
-                <span><img src="assets/img/icon/019-email-1.png" alt="Ícone Email"> contato@kipedreiro.com.br</span>
-                <a href="#" class="cabecalho__login"><img src="assets/img/icon/017-profile-user-1.png" alt="Ícone Login"> Login</a>
-            </div>
-        </div>
-        <nav class="cabecalho__principal">
-            <div class="container">
-                <a href="index.html">
-                    <img src="/assets/img/logo/KiPedreiro.png" alt="Logo Ki-Pedreiro" class="cabecalho__logo">
-                </a>
-                <ul class="cabecalho__menu">
-                    <li><a href="index.html" class="cabecalho__link cabecalho__link--ativo">Home</a></li>
-                    <li><a href="#" class="cabecalho__link">Sobre</a></li>
-                    <li><a href="projetos.html" class="cabecalho__link">Portfólio</a></li>
-                    <li><a href="servicos.html" class="cabecalho__link">Serviços</a></li>
-                    <li><a href="#" class="cabecalho__link">Área de atuação</a></li>
-                    <li><a href="contato.html" class="cabecalho__link">Contato</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-<main>
-    <section class="servicos">
-        <form action="enviaemail.php" method="post">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required>
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required>
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" required>
-            <button type="submit" >Cadastrar</button>
-        </form>
-        </section>
-            </main>
+    <style>
+        .contato-hero {
+            background-color: #222;
+            color: #fff;
+            padding: 80px 20px 40px;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/img/midsection-engineer-using-digital-tablet-construction-site-min.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 60px;
+        }
 
-    <footer class="rodape">
-        <div class="container">
-            <div class="rodape__grid">
-                <div class="rodape__coluna">
-                    <h4 class="rodape__titulo">Navegação</h4>
-                    <ul class="rodape__lista-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#">Sobre Nós</a></li>
-                        <li><a href="servicos.html">Serviços</a></li>
-                        <li><a href="projetos.html">Portfólio</a></li>
-                        <li><a href="#">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="rodape__coluna">
-                    <h4 class="rodape__titulo">Contato</h4>
-                    <p>(11) 9 4802-0922</p>
-                    <p>contato@kipedreiro.com.br</p>
-                    <p>Rua Exemplo, 123 - São Paulo, SP</p>
-                </div>
-                 <div class="rodape__coluna">
-                    <h4 class="rodape__titulo">Siga-nos</h4>
-                    <div class="rodape__redes-sociais">
-                        <a href="#"><img src="assets/img/icon/facebook.svg" alt="Facebook"></a>
-                        <a href="#"><img src="assets/img/icon/instagram.svg" alt="Instagram"></a>
-                        <a href="#"><img src="assets/img/icon/linkedin.svg" alt="LinkedIn"></a>
-                    </div>
+        .contato-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--cor-laranja);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="cabecalho" id="navbar">
+    </header>
+
+    <main>
+        <section class="contato-hero">
+            <div class="container">
+                <h1>Fale Conosco</h1>
+                <p>Estamos prontos para atender sua solicitação.</p>
+            </div>
+        </section>
+
+        <section class="contato">
+            <div class="container">
+                <h2>Fale Conosco</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">Preencha o formulário abaixo para solicitar um
+                    orçamento ou tirar dúvidas.</p>
+
+                <div class="form-contato">
+                    <div id="msg-feedback"
+                        style="display:none; padding: 10px; margin-bottom: 20px; border-radius: 4px;"></div>
+
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" id="nome" name="nome" class="form-input" required
+                                placeholder="Seu nome completo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" id="email" name="email" class="form-input" required
+                                placeholder="seu@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensagem" class="form-label">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" class="form-input" rows="5" required
+                                placeholder="Como podemos ajudar?"></textarea>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button type="submit" class="botao botao--primario">Enviar Mensagem</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="rodape__direitos">
-                <p>&copy; 2025 Ki-Pedreiro. Todos os direitos reservados.</p>
-            </div>
-        </div>
+        </section>
+    </main>
+
+    <footer class="rodape" id="footer">
     </footer>
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/rodape.js"></script>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('button');
+            const feedback = document.getElementById('msg-feedback');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Enviando...';
+            btn.disabled = true;
+
+            const data = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                mensagem: document.getElementById('mensagem').value
+            };
+
+            // Assuming relative path works for fetch if on same domain
+            fetch('backend/index.php/api/contato', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    feedback.style.display = 'block';
+                    if (result.status) {
+                        feedback.style.backgroundColor = '#d4edda';
+                        feedback.style.color = '#155724';
+                        feedback.innerText = result.message;
+                        document.getElementById('contactForm').reset();
+                    } else {
+                        feedback.style.backgroundColor = '#f8d7da';
+                        feedback.style.color = '#721c24';
+                        feedback.innerText = result.message || 'Erro ao enviar.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    feedback.style.display = 'block';
+                    feedback.style.backgroundColor = '#f8d7da';
+                    feedback.style.color = '#721c24';
+                    feedback.innerText = 'Erro de conexão com o servidor.';
+                })
+                .finally(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+
+                    // Auto hide success message
+                    if (feedback.style.backgroundColor == 'rgb(212, 237, 218)' || feedback.style.backgroundColor == '#d4edda') {
+                        setTimeout(() => {
+                            feedback.style.display = 'none';
+                        }, 5000);
+                    }
+                });
+        });
+
+    </script>
+    </section>
+    </main>
+
+    <footer class="rodape" id="footer">
+    </footer>
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/rodape.js"></script>
 </body>
+
 </html>
