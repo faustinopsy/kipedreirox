@@ -31,6 +31,12 @@ class Rotas
                 '/servico/excluir/{id}' => 'ServicoController@viewExcluirServico',
 
                 '/api/produtos' => 'PublicApiController@getProdutos',
+
+                '/orcamento/listar/1'      => 'OrcamentoController@viewListarOrcamentos',
+                '/orcamento/listar/{pagina}' => 'OrcamentoController@viewListarOrcamentos',
+                '/orcamento/criar'         => 'OrcamentoController@viewCriarOrcamento',
+                '/orcamento/editar/{id}'   => 'OrcamentoController@viewEditarOrcamento',
+                '/orcamento/cancelar/{id}' => 'OrcamentoController@viewCancelarOrcamento',
             ],
             
             "POST" => [
@@ -41,13 +47,17 @@ class Rotas
                 "/api/usuariosalvar" => "APIUsuarioController@salvarUsuario",
                 "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",
                 "/usuario/deletar" => "UsuarioController@deletarUsuario",
-
+                "/usuario/salvar" => "UsuarioController@salvarUsuario",
                 '/register' => 'AuthController@cadastrarUsuario',
                 '/login' => 'AuthController@authenticar',
 
-                '/servico/salvar' => 'ServicoController@salvarServico',
+                '/servico/salvar'  => 'ServicoController@salvarServico',
                 '/servico/atualizar' => 'ServicoController@atualizarServico',
                 '/servico/deletar' => 'ServicoController@deletarServico',
+
+                '/orcamento/salvar'    => 'OrcamentoController@salvarOrcamento',
+                '/orcamento/atualizar' => 'OrcamentoController@atualizarOrcamento',
+                '/orcamento/cancelar'  => 'OrcamentoController@cancelarOrcamento',
 
                
             ]

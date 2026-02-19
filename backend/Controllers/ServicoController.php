@@ -26,11 +26,11 @@ class ServicoController extends AdminController {
 
     public function viewListarServicos($pagina = 1) {
         if (empty($pagina) || $pagina <= 0) $pagina = 1;
-        
+
         $dados = $this->servico->paginacao($pagina, 50);
-        
+
         View::render("servico/index", [
-            "servicos" => $dados['data'],
+            "servicos"  => $dados['data'],
             'paginacao' => $dados
         ]);
     }
@@ -42,41 +42,52 @@ class ServicoController extends AdminController {
     public function salvarServico() {
         if (empty($_POST["nome_servico"]) || empty($_FILES['foto_servico']['name'])) {
             Redirect::redirecionarComMensagem("servico/criar", "error", "Nome e Foto são obrigatórios.");
+            return;
         }
 
-        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['foto_servico'], 'servicos');
+        $imagem     = $this->gerenciarImagem->salvarArquivo($_FILES['foto_servico'], 'servicos');
+        $tipo       = $_POST['tipo_servico']       ?? 'trabalho';
+        $valor_base = !empty($_POST['valor_base_servico'])
+                        ? (float) str_replace(',', '.', $_POST['valor_base_servico'])
+                        : null;
 
         if ($this->servico->inserirServico(
             $_POST["nome_servico"],
-            $_POST["descricao_servico"],
-            $imagem
+            $_POST["descricao_servico"] ?? '',
+            $imagem,
+            $tipo,
+            $valor_base
         )) {
             Redirect::redirecionarComMensagem("servico/listar", "success", "Serviço cadastrado com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("servico/criar", "error", "Erro ao cadastrar serviço.");
         }
     }
-    
+
     public function viewEditarServico(int $id) {
         $servico = $this->servico->buscarPorID($id);
         if (!$servico) {
             Redirect::redirecionarComMensagem("servico/listar", "error", "Serviço não encontrado.");
+            return;
         }
-        
         View::render("servico/edit", ["servico" => $servico]);
     }
 
     public function atualizarServico() {
-        $id = (int)$_POST['id_servico'];
-        $nome = $_POST['nome_servico'];
-        $descricao = $_POST['descricao_servico'];
-        $imagem = null;
+        $id         = (int) $_POST['id_servico'];
+        $nome       = $_POST['nome_servico'];
+        $descricao  = $_POST['descricao_servico'] ?? '';
+        $tipo       = $_POST['tipo_servico']       ?? 'trabalho';
+        $valor_base = !empty($_POST['valor_base_servico'])
+                        ? (float) str_replace(',', '.', $_POST['valor_base_servico'])
+                        : null;
+        $imagem     = null;
 
         if (isset($_FILES['foto_servico']) && $_FILES['foto_servico']['error'] == 0 && !empty($_FILES['foto_servico']['name'])) {
             $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['foto_servico'], 'servicos');
         }
 
-        if ($this->servico->atualizarServico($id, $nome, $descricao, $imagem)) {
+        if ($this->servico->atualizarServico($id, $nome, $descricao, $imagem, $tipo, $valor_base)) {
             Redirect::redirecionarComMensagem("servico/listar", "success", "Serviço atualizado com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("servico/editar/" . $id, "error", "Erro ao atualizar serviço.");
@@ -87,14 +98,13 @@ class ServicoController extends AdminController {
         $servico = $this->servico->buscarPorID($id);
         if (!$servico) {
             Redirect::redirecionarComMensagem("servico/listar", "error", "Serviço não encontrado.");
+            return;
         }
-
         View::render("servico/delete", ["servico" => $servico]);
     }
 
     public function deletarServico() {
-        $id = (int)$_POST['id_servico'];
-
+        $id = (int) $_POST['id_servico'];
         if ($this->servico->deletarServico($id)) {
             Redirect::redirecionarComMensagem("servico/listar", "success", "Serviço inativado com sucesso!");
         } else {

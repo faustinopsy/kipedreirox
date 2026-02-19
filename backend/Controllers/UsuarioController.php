@@ -23,10 +23,13 @@ class UsuarioController extends AdminController{
     public function salvarUsuario(){
        $erros = UsuarioValidador::ValidarEntradas($_POST);
        if(!empty($erros)){
-            Redirect::redirecionarComMensagem("usuario/criar","error", implode("<br>", $erros));
+            Redirect::redirecionarComMensagem("usuario/criar", "error", implode("<br>", $erros));
+            return;
        }
-       //novo caminho =                                (arquivo          ,subdiretorio)
-       $imagem =  $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'usuario');
+
+       // Usuários não possuem foto no formulário de cadastro admin
+       $imagem = null;
+
         if($this->usuario->inseriUsuario(
             $_POST["nome_usuario"],
             $_POST["email_usuario"],
@@ -35,9 +38,9 @@ class UsuarioController extends AdminController{
             "Ativo",
             $imagem
         )){
-            Redirect::redirecionarComMensagem("usuario/listar","success","Usuário cadastrado com sucesso!");
+            Redirect::redirecionarComMensagem("usuario/listar/1", "success", "Usuário cadastrado com sucesso!");
         }else{
-            Redirect::redirecionarComMensagem("usuario/criar","error","Erro ao cadastrar usuário!");
+            Redirect::redirecionarComMensagem("usuario/criar", "error", "Erro ao cadastrar usuário!");
         }
     }
     public function index() {

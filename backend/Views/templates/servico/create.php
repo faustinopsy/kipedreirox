@@ -1,41 +1,79 @@
-<div class="w3-container">
-    <h3>Novo Serviço</h3>
-    <form action="/backend/servico/salvar" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
-        
-        <p>
-        <label class="w3-text-blue"><b>Nome do Serviço</b></label>
-        <input class="w3-input w3-border" name="nome_servico" type="text" required>
-        </p>
-        
-        <p>
-        <label class="w3-text-blue"><b>Descrição Curta</b></label>
-        <input class="w3-input w3-border" name="descricao_servico" type="text">
-        </p>
+<div style="padding: 28px;">
 
-        <p>
-        <label class="w3-text-blue"><b>Foto Principal</b></label>
-        <input class="w3-input w3-border" id="foto_servico" name="foto_servico" type="file" required>
-        </p>
-        <div style="margin-top: 20px; display: flex; gap: 20px;">
-      <div>
-        <h3>Original</h3>
-        <img id="previewOriginal" style="max-width: 300px;" />
-        <p id="infoOriginal"></p>
-      </div>
-      <div>
-        <h3>Comprimida (WebP)</h3>
-        <img id="previewCompressed" style="max-width: 300px;" />
-        <p id="infoCompressed"></p>
-      </div>
+    <!-- Page Header -->
+    <div class="adm-page-header">
+        <div class="adm-page-title">
+            <div class="title-icon"><i class="fa fa-plus-circle"></i></div>
+            <div>
+                <h1>Novo Serviço</h1>
+                <p>Preencha os dados para cadastrar um serviço</p>
+            </div>
+        </div>
+        <a href="/backend/servico/listar" class="adm-btn adm-btn-edit">
+            <i class="fa fa-arrow-left"></i> Voltar
+        </a>
     </div>
-        <p>
-        <button class="w3-button w3-blue">Salvar Serviço</button>
-        </p>
 
-    </form>
+    <!-- Form Card -->
+    <div class="adm-form-page" style="max-width:760px;">
+        <div class="adm-form-card">
+            <div class="adm-form-card-header">
+                <div class="header-icon"><i class="fa fa-briefcase"></i></div>
+                <h2>Dados do Serviço</h2>
+            </div>
+
+            <form action="/backend/servico/salvar" method="POST" enctype="multipart/form-data">
+                <div class="adm-form-card-body">
+
+                    <div class="adm-form-group">
+                        <label for="nome_servico">Nome do Serviço</label>
+                        <input type="text" id="nome_servico" name="nome_servico"
+                               placeholder="Ex: Alvenaria, Pintura, Elétrica..." required>
+                    </div>
+
+                    <div class="adm-form-group">
+                        <label for="descricao_servico">Descrição Curta</label>
+                        <input type="text" id="descricao_servico" name="descricao_servico"
+                               placeholder="Breve descrição do serviço">
+                    </div>
+
+                    <div class="adm-form-group">
+                        <label for="foto_servico">Foto Principal</label>
+                        <input type="file" id="foto_servico" name="foto_servico"
+                               accept="image/*" required>
+                        <p class="hint">Formatos aceitos: JPG, PNG, WEBP. A imagem será comprimida automaticamente.</p>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="adm-img-preview-grid">
+                        <div class="adm-img-preview-box">
+                            <h4><i class="fa fa-image"></i> Original</h4>
+                            <img id="previewOriginal" alt="Preview original">
+                            <p id="infoOriginal"></p>
+                        </div>
+                        <div class="adm-img-preview-box">
+                            <h4><i class="fa fa-compress"></i> Comprimida (WebP)</h4>
+                            <img id="previewCompressed" alt="Preview comprimido">
+                            <p id="infoCompressed"></p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="adm-form-card-footer">
+                    <button type="submit" class="adm-btn adm-btn-primary">
+                        <i class="fa fa-save"></i> Salvar Serviço
+                    </button>
+                    <a href="/backend/servico/listar" class="adm-btn adm-btn-edit">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
-<script>
 
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById('foto_servico');
   const outputDiv = document.getElementById('infoCompressed');
@@ -43,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const previewOriginal = document.getElementById('previewOriginal');
   const infoOriginal = document.getElementById('infoOriginal');
 
-  // Verifica se todos os elementos existem para evitar erros silenciosos
   if (!input || !outputDiv || !previewImg || !previewOriginal || !infoOriginal) {
       console.error("Elementos do formulário não encontrados para o preview de imagem.");
       return;
@@ -53,55 +90,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Evita loop se for o arquivo já comprimido
-    if (file.type === 'image/webp' && file.name.endsWith('.webp')) {
-        return;
-    }
+    if (file.type === 'image/webp' && file.name.endsWith('.webp')) return;
 
-    // --- PREVIEW IMEDIATO DO ORIGINAL ---
-    // Garante que a img esteja visível caso estivesse oculta
-    previewOriginal.style.display = 'block'; 
+    previewOriginal.style.display = 'block';
     previewOriginal.src = URL.createObjectURL(file);
-    infoOriginal.innerText = "Carregando compressão...";
+    infoOriginal.innerText = "Processando...";
 
     try {
       const result = await compressImage(file);
-      
-      // Atualiza info do original
+
       infoOriginal.innerHTML = `
           Tamanho: ${(result.meta.originalSize / 1024).toFixed(2)} KB<br>
-          Dimensões: ${result.meta.originalWidth} x ${result.meta.originalHeight} px
+          Dimensões: ${result.meta.originalWidth} × ${result.meta.originalHeight} px
       `;
 
-      // Mostra o resultado processado
       previewImg.style.display = 'block';
       previewImg.src = URL.createObjectURL(result.file);
-      
-      const colorBox = `<div style="
-          display:inline-block; 
-          width:20px; 
-          height:20px; 
-          background-color:${result.meta.dominantColor}; 
-          border:1px solid #ccc;
-          vertical-align: middle;
-          margin-left: 5px;"></div>`;
+
+      const colorBox = `<span style="display:inline-block;width:14px;height:14px;background:${result.meta.dominantColor};border-radius:3px;border:1px solid #ccc;vertical-align:middle;margin-left:4px;"></span>`;
 
       outputDiv.innerHTML = `
-        <strong>Metadados Extraídos:</strong><br>
-        Tamanho Final: ${(result.meta.compressedSize / 1024).toFixed(2)} KB<br>
-        Dimensões Finais: ${result.meta.finalWidth} x ${result.meta.finalHeight} px<br>
-        Cor Predominante: ${result.meta.dominantColor} ${colorBox}<br>
-        <hr>
-        <span style="color: green">Pronto para envio!</span>
+        Tamanho final: ${(result.meta.compressedSize / 1024).toFixed(2)} KB<br>
+        Dimensões: ${result.meta.finalWidth} × ${result.meta.finalHeight} px<br>
+        Cor predominante: ${result.meta.dominantColor} ${colorBox}<br>
+        <span class="ready"><i class="fa fa-check-circle"></i> Pronto para envio!</span>
       `;
 
-      // Substituição do input
       const dataTransfer = new DataTransfer();
       dataTransfer.items.add(result.file);
       input.files = dataTransfer.files;
 
-      console.log("Imagem comprimida definida no input.");
-         
     } catch (err) {
       console.error(err);
       infoOriginal.innerText = "Erro ao processar.";
@@ -111,102 +129,40 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getAverageColor(ctx, width, height) {
-    // Pega os dados dos pixels (R, G, B, Alpha)
-    // Para performance, poderíamos ler apenas uma amostra, mas aqui leremos tudo
     const imageData = ctx.getImageData(0, 0, width, height);
     const data = imageData.data;
-    
-    let r = 0, g = 0, b = 0;
-    let count = 0;
-
-    // Loop pulando de 10 em 10 pixels para ser MUITO rápido
-    // i += 4 * 10 (4 canais: r,g,b,a)
+    let r = 0, g = 0, b = 0, count = 0;
     for (let i = 0; i < data.length; i += 40) {
-        r += data[i];
-        g += data[i + 1];
-        b += data[i + 2];
-        count++;
+        r += data[i]; g += data[i + 1]; b += data[i + 2]; count++;
     }
-
-    // Calcula a média
-    r = Math.floor(r / count);
-    g = Math.floor(g / count);
-    b = Math.floor(b / count);
-
-    // Converte para Hexadecimal (#RRGGBB)
+    r = Math.floor(r / count); g = Math.floor(g / count); b = Math.floor(b / count);
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
 async function compressImage(file, quality = 0.8, maxWidth = 1200) {
   return new Promise((resolve, reject) => {
-    if (!file.type.match(/image.*/)) {
-      reject(new Error("O arquivo não é uma imagem."));
-      return;
-    }
-
+    if (!file.type.match(/image.*/)) { reject(new Error("O arquivo não é uma imagem.")); return; }
     const reader = new FileReader();
     reader.readAsDataURL(file);
-
     reader.onload = (event) => {
       const img = new Image();
       img.src = event.target.result;
-
       img.onload = () => {
-        // --- Captura dados originais ---
         const originalWidth = img.naturalWidth;
         const originalHeight = img.naturalHeight;
-
-        // --- Lógica de Redimensionamento ---
-        let width = originalWidth;
-        let height = originalHeight;
-
-        if (width > maxWidth) {
-          height = Math.round((height * maxWidth) / width);
-          width = maxWidth;
-        }
-
+        let width = originalWidth, height = originalHeight;
+        if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
         const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        
+        canvas.width = width; canvas.height = height;
         const ctx = canvas.getContext('2d');
-        // Desenha a imagem redimensionada no canvas
         ctx.drawImage(img, 0, 0, width, height);
-
-        // --- Extração de Cor ---
-        // Analisa os pixels da imagem já desenhada
         const dominantColor = getAverageColor(ctx, width, height);
-
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) {
-              reject(new Error("Erro ao processar.")); 
-              return;
-            }
-
-            const newName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
-            const newFile = new File([blob], newName, {
-              type: "image/webp",
-              lastModified: Date.now(),
-            });
-            
-            // Retorna um objeto rico com todos os metadados
-            resolve({
-              file: newFile,
-              meta: {
-                originalSize: file.size,
-                compressedSize: newFile.size,
-                originalWidth: originalWidth,
-                originalHeight: originalHeight,
-                finalWidth: width,
-                finalHeight: height,
-                dominantColor: dominantColor // Ex: #ff0000
-              }
-            });
-          },
-          'image/webp',
-          quality
-        );
+        canvas.toBlob((blob) => {
+          if (!blob) { reject(new Error("Erro ao processar.")); return; }
+          const newName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+          const newFile = new File([blob], newName, { type: "image/webp", lastModified: Date.now() });
+          resolve({ file: newFile, meta: { originalSize: file.size, compressedSize: newFile.size, originalWidth, originalHeight, finalWidth: width, finalHeight: height, dominantColor } });
+        }, 'image/webp', quality);
       };
       img.onerror = (err) => reject(err);
     };
