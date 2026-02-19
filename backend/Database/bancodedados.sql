@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
 --
--- Host: localhost    Database: kipedreiro
+-- Host: 127.0.0.1    Database: kipedreiro
 -- ------------------------------------------------------
--- Server version	5.5.5-10.4.32-MariaDB
+-- Server version	9.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `tbl_agendamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_agendamento` (
-  `id_agendamento` int(11) NOT NULL AUTO_INCREMENT,
-  `id_cliente` int(11) DEFAULT NULL,
+  `id_agendamento` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int DEFAULT NULL,
   `data_solicitada` datetime DEFAULT NULL,
   `total_agendamento` decimal(10,2) DEFAULT NULL,
-  `status_agendamento` varchar(10) DEFAULT NULL,
+  `status_agendamento` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `criado_em` datetime DEFAULT NULL,
   PRIMARY KEY (`id_agendamento`),
   KEY `id_cliente` (`id_cliente`),
@@ -53,12 +53,12 @@ DROP TABLE IF EXISTS `tbl_avaliacao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_avaliacao` (
-  `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT,
-  `id_cliente` int(11) DEFAULT NULL,
-  `id_item_orcamento` int(11) DEFAULT NULL,
-  `descricao_avaliacao` text DEFAULT NULL,
-  `nota_avaliacao` int(11) DEFAULT NULL,
-  `status_avaliacao` varchar(10) DEFAULT NULL,
+  `id_avaliacao` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int DEFAULT NULL,
+  `id_item_orcamento` int DEFAULT NULL,
+  `descricao_avaliacao` text COLLATE utf8mb4_general_ci,
+  `nota_avaliacao` int DEFAULT NULL,
+  `status_avaliacao` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `criado_em` datetime DEFAULT NULL,
   PRIMARY KEY (`id_avaliacao`),
   KEY `id_cliente` (`id_cliente`),
@@ -86,10 +86,10 @@ DROP TABLE IF EXISTS `tbl_categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_categoria` (
-  `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_categoria` varchar(50) NOT NULL,
-  `descricao_categoria` text DEFAULT NULL,
-  `foto_categoria` varchar(40) DEFAULT NULL,
+  `id_categoria` int NOT NULL AUTO_INCREMENT,
+  `nome_categoria` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `descricao_categoria` text COLLATE utf8mb4_general_ci,
+  `foto_categoria` varchar(40) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_categoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -112,13 +112,13 @@ DROP TABLE IF EXISTS `tbl_contato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_contato` (
-  `id_contato` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_contato` varchar(100) DEFAULT NULL,
-  `telefone_contato` varchar(14) DEFAULT NULL,
-  `email_contato` varchar(80) DEFAULT NULL,
-  `assunto_contato` varchar(20) DEFAULT NULL,
-  `mensagem_contato` text DEFAULT NULL,
-  `status_contato` varchar(10) DEFAULT NULL,
+  `id_contato` int NOT NULL AUTO_INCREMENT,
+  `nome_contato` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telefone_contato` varchar(14) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email_contato` varchar(80) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `assunto_contato` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mensagem_contato` text COLLATE utf8mb4_general_ci,
+  `status_contato` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `data_envio` datetime DEFAULT NULL,
   PRIMARY KEY (`id_contato`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -142,15 +142,15 @@ DROP TABLE IF EXISTS `tbl_endereco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_endereco` (
-  `id_endereco` int(11) NOT NULL AUTO_INCREMENT,
-  `cep_endereco` char(9) DEFAULT NULL,
-  `logradouro_endereco` varchar(60) DEFAULT NULL,
-  `numero_endereco` char(6) DEFAULT NULL,
-  `complemento_endereco` varchar(100) DEFAULT NULL,
-  `bairro_endereco` varchar(30) DEFAULT NULL,
-  `cidade_endereco` varchar(30) DEFAULT NULL,
-  `uf_endereco` char(2) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
+  `id_endereco` int NOT NULL AUTO_INCREMENT,
+  `cep_endereco` char(9) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `logradouro_endereco` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `numero_endereco` char(6) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `complemento_endereco` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `bairro_endereco` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cidade_endereco` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `uf_endereco` char(2) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL,
   PRIMARY KEY (`id_endereco`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `tbl_endereco_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuario` (`id_usuario`)
@@ -175,13 +175,13 @@ DROP TABLE IF EXISTS `tbl_item_agendamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_item_agendamento` (
-  `id_item_agendamento` int(11) NOT NULL AUTO_INCREMENT,
-  `id_agendamento` int(11) DEFAULT NULL,
-  `id_servico` int(11) DEFAULT NULL,
+  `id_item_agendamento` int NOT NULL AUTO_INCREMENT,
+  `id_agendamento` int DEFAULT NULL,
+  `id_servico` int DEFAULT NULL,
   `valor_servico` decimal(10,2) DEFAULT NULL,
   `qtde_solicitada` decimal(6,2) DEFAULT NULL,
   `total_item` decimal(10,2) DEFAULT NULL,
-  `id_responsavel` int(11) DEFAULT NULL,
+  `id_responsavel` int DEFAULT NULL,
   PRIMARY KEY (`id_item_agendamento`),
   KEY `id_agendamento` (`id_agendamento`),
   KEY `id_servico` (`id_servico`),
@@ -210,14 +210,14 @@ DROP TABLE IF EXISTS `tbl_item_orcamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_item_orcamento` (
-  `id_item_orcamento` int(11) NOT NULL AUTO_INCREMENT,
-  `id_orcamento` int(11) DEFAULT NULL,
-  `id_servico` int(11) DEFAULT NULL,
-  `descricao_item_orcamento` text DEFAULT NULL,
+  `id_item_orcamento` int NOT NULL AUTO_INCREMENT,
+  `id_orcamento` int DEFAULT NULL,
+  `id_servico` int DEFAULT NULL,
+  `descricao_item_orcamento` text COLLATE utf8mb4_general_ci,
   `valor_servico` decimal(10,2) DEFAULT NULL,
   `qtde_solicitada` decimal(6,2) DEFAULT NULL,
   `total_item_orcamento` decimal(10,2) DEFAULT NULL,
-  `status_item_orcamento` varchar(10) DEFAULT NULL,
+  `status_item_orcamento` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_item_orcamento`),
   KEY `id_orcamento` (`id_orcamento`),
   KEY `id_servico` (`id_servico`),
@@ -244,12 +244,12 @@ DROP TABLE IF EXISTS `tbl_orcamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_orcamento` (
-  `id_orcamento` int(11) NOT NULL AUTO_INCREMENT,
-  `id_cliente` int(11) DEFAULT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
-  `id_pedreiro` int(11) DEFAULT NULL,
-  `descricao_orcamento` text DEFAULT NULL,
-  `status_orcamento` varchar(18) DEFAULT NULL,
+  `id_orcamento` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int DEFAULT NULL,
+  `id_categoria` int DEFAULT NULL,
+  `id_pedreiro` int DEFAULT NULL,
+  `descricao_orcamento` text COLLATE utf8mb4_general_ci,
+  `status_orcamento` varchar(18) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `data_orcamento` datetime DEFAULT NULL,
   `criado_em` datetime DEFAULT NULL,
   `finalizado_em` datetime DEFAULT NULL,
@@ -281,14 +281,14 @@ DROP TABLE IF EXISTS `tbl_pagamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_pagamento` (
-  `id_pagamento` int(11) NOT NULL AUTO_INCREMENT,
-  `id_cliente` int(11) DEFAULT NULL,
+  `id_pagamento` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int DEFAULT NULL,
   `total_devedor` decimal(10,2) DEFAULT NULL,
   `dinheiro` decimal(10,2) DEFAULT NULL,
   `credito` decimal(10,2) DEFAULT NULL,
   `debito` decimal(10,2) DEFAULT NULL,
   `pix` decimal(10,2) DEFAULT NULL,
-  `status_pagamento` varchar(16) DEFAULT NULL,
+  `status_pagamento` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `data_pagamento` datetime DEFAULT NULL,
   PRIMARY KEY (`id_pagamento`),
   KEY `id_cliente` (`id_cliente`),
@@ -307,6 +307,37 @@ INSERT INTO `tbl_pagamento` VALUES (1,2,1500.00,0.00,1500.00,NULL,0.00,'Quitado'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbl_portfolio`
+--
+
+DROP TABLE IF EXISTS `tbl_portfolio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_portfolio` (
+  `id_portfolio` int NOT NULL AUTO_INCREMENT,
+  `titulo_portfolio` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descricao_portfolio` text COLLATE utf8mb4_unicode_ci,
+  `imagem_portfolio` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cliente_portfolio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_projeto` date DEFAULT NULL,
+  `status_portfolio` enum('ativo','inativo') COLLATE utf8mb4_unicode_ci DEFAULT 'ativo',
+  `criado_em` datetime DEFAULT CURRENT_TIMESTAMP,
+  `atualizado_em` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_portfolio`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_portfolio`
+--
+
+LOCK TABLES `tbl_portfolio` WRITE;
+/*!40000 ALTER TABLE `tbl_portfolio` DISABLE KEYS */;
+INSERT INTO `tbl_portfolio` VALUES (1,'xxxxxxxxxxxxxx','cccccccccc dddddddddddddddddd','portfolio/699779f8410da5.65928057.webp','dddddddddddd','2026-02-19','ativo','2026-02-19 18:00:40','2026-02-19 18:00:40'),(2,'hhhhhhhhhh','fsssssssssssssssssss','portfolio/69977a0f0bdf47.97841541.webp','ggggggggggg','2026-02-18','ativo','2026-02-19 18:01:03','2026-02-19 18:01:03');
+/*!40000 ALTER TABLE `tbl_portfolio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_servico`
 --
 
@@ -314,15 +345,16 @@ DROP TABLE IF EXISTS `tbl_servico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_servico` (
-  `id_servico` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_servico` varchar(10) DEFAULT NULL,
-  `descricao_servico` text DEFAULT NULL,
+  `id_servico` int NOT NULL AUTO_INCREMENT,
+  `nome_servico` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descricao_servico` text COLLATE utf8mb4_general_ci,
   `valor_base_servico` decimal(10,2) DEFAULT NULL,
-  `foto_servico` varchar(40) DEFAULT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
-  `status_servico` varchar(10) DEFAULT NULL,
+  `foto_servico` varchar(40) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_categoria` int DEFAULT NULL,
+  `status_servico` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `criado_em` datetime DEFAULT NULL,
   `atualizado_em` datetime DEFAULT NULL,
+  `tipo_servico` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_servico`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `tbl_servico_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `tbl_categoria` (`id_categoria`)
@@ -335,8 +367,40 @@ CREATE TABLE `tbl_servico` (
 
 LOCK TABLES `tbl_servico` WRITE;
 /*!40000 ALTER TABLE `tbl_servico` DISABLE KEYS */;
-INSERT INTO `tbl_servico` VALUES (1,'Construção','Levantamento de paredes de alvenaria com tijolos cerâmicos ou blocos de concreto. Valor por m².',120.00,'servicos/697cb0b0b830b9.90316294.jpg',1,'ativo','2025-08-14 08:24:59','2026-01-30 10:22:56'),(2,'Pintura In','Aplicação de 2 demãos de tinta látex em paredes internas. Material não incluso. Valor por m².',35.50,'servicos/697cb0bf1f0632.90281654.jpg',2,'ativo','2025-08-14 08:24:59','2026-01-30 10:23:11'),(3,'Instalação','Instalação de novo ponto de tomada 110v ou 220v, incluindo passagem de fiação. Valor por ponto.',150.00,'servicos/697cb0d48f8533.85411704.jpg',3,'ativo','2025-08-14 08:24:59','2026-01-30 10:23:32'),(4,'Reparo de ','Identificação e conserto de vazamentos simples em pias, chuveiros e vasos sanitários. Valor por hora técnica.',90.00,'servicos/697cb0dc84cb05.34495385.jpg',4,'ativo','2025-08-14 08:24:59','2026-01-30 10:23:40'),(5,'Instalação','Instalação completa de porta de madeira (batente, folha e ferragens).',250.00,'serv_porta.webp',5,'Inativo','2025-08-14 08:24:59',NULL),(6,'Manutenção','Corte e aparo de grama para jardins de até 50m². Inclui limpeza da área.',180.00,'serv_gramado.webp',6,'Inativo','2025-08-14 08:24:59',NULL),(7,'Forro de G','Instalação de forro de gesso (drywall) plano. Valor por m².',85.00,'serv_forro_gesso.webp',7,'Inativo','2025-08-14 08:24:59',NULL),(8,'Assentamen','Aplicação de porcelanato em pisos ou paredes. Rejunte incluso. Valor por m².',95.00,'serv_porcelanato.webp',8,'Inativo','2025-08-14 08:24:59',NULL),(9,'Impermeabi','Aplicação de manta asfáltica ou argamassa polimérica para vedação de lajes expostas. Valor por m².',110.00,'serv_impermeabilizacao.webp',9,'Inativo','2025-08-14 08:24:59',NULL),(10,'Fabricação','Criação de portão basculante ou deslizante em ferro. Modelo simples. Valor por m².',450.00,'serv_portao.webp',10,'Inativo','2025-08-14 08:24:59',NULL),(11,'Limpeza Fi','Serviço de limpeza detalhada para remoção de poeira e resíduos de cimento/tinta. Valor por m².',25.00,'serv_limpeza_obra.webp',11,'Inativo','2025-08-14 08:24:59',NULL),(12,'Instalação','Instalação de ar condicionado modelo Split de até 9000 BTUs. Material de fixação incluso.',480.00,'serv_split.webp',12,'Inativo','2025-08-14 08:24:59',NULL),(13,'Montagem d','Montagem de móveis comprados prontos (guarda-roupa, estante, etc). Valor por hora.',75.00,'serv_montagem_movel.webp',13,'Inativo','2025-08-14 08:24:59',NULL),(14,'Instalação','Instalação de box de banheiro padrão em vidro temperado.',300.00,'serv_box_vidro.webp',14,'Inativo','2025-08-14 08:24:59',NULL),(15,'Pintura Ex','Pintura de fachadas e muros com tinta acrílica. Valor por m².',45.00,'serv_pintura_externa.webp',2,'Inativo','2025-08-14 08:24:59',NULL),(16,'Troca de D','Substituição de disjuntor em quadro de energia. Valor por unidade.',80.00,'serv_disjuntor.webp',3,'Inativo','2025-08-14 08:24:59',NULL),(17,'Reparo de ','Troca de telhas quebradas e verificação de calhas. Valor da visita técnica.',200.00,'serv_reparo_telhado.webp',18,'Inativo','2025-08-14 08:24:59',NULL),(18,'Instalação','Instalação e configuração de câmera de segurança (CFTV). Valor por ponto.',180.00,'serv_camera.webp',17,'Inativo','2025-08-14 08:24:59',NULL),(19,'Reboco de ','Aplicação de massa de reboco em paredes internas ou externas para acabamento. Valor por m².',40.00,'serv_reboco.webp',1,'Inativo','2025-08-14 08:24:59',NULL),(20,'Consultori','Visita técnica para avaliação de obra, diagnóstico de problemas e orientação. Valor por hora.',250.00,'serv_consultoria.webp',20,'Inativo','2025-08-14 08:24:59',NULL),(21,'dddddddd','dffffffffffff',NULL,'servicos/6984808b014b79.66520199.webp',NULL,'Ativo','2026-02-05 08:35:39',NULL),(22,'xxxxxxxxxx','xxxxxxxxxxxxxxxxxxx',NULL,'',NULL,'Ativo','2026-02-19 08:15:31',NULL),(23,'xxxxxxxxxx','dddddddddddddddd',NULL,'servicos/6996f422f34226.47067485.webp',NULL,'Ativo','2026-02-19 08:29:38',NULL),(24,'xxxxxxxxxx','sssssssssssss',NULL,'servicos/6996f54f17c77.png',NULL,'Ativo','2026-02-19 08:34:39',NULL);
+INSERT INTO `tbl_servico` VALUES (1,'Construção','Levantamento de paredes de alvenaria com tijolos cerâmicos ou blocos de concreto. Valor por m².',120.00,'servicos/697cb0b0b830b9.90316294.jpg',1,'ativo','2025-08-14 08:24:59','2026-01-30 10:22:56','site'),(2,'Pintura In','Aplicação de 2 demãos de tinta látex em paredes internas. Material não incluso. Valor por m².',NULL,'servicos/699773bc548f28.68892880.webp',2,'ativo','2025-08-14 08:24:59','2026-02-19 17:34:04','site'),(3,'Instalação','Instalação de novo ponto de tomada 110v ou 220v, incluindo passagem de fiação. Valor por ponto.',150.00,'servicos/697cb0d48f8533.85411704.jpg',3,'ativo','2025-08-14 08:24:59','2026-01-30 10:23:32','site'),(4,'Reparo de ','Identificação e conserto de vazamentos simples em pias, chuveiros e vasos sanitários. Valor por hora técnica.',90.00,'servicos/697cb0dc84cb05.34495385.jpg',4,'ativo','2025-08-14 08:24:59','2026-01-30 10:23:40',NULL),(5,'Instalação','Instalação completa de porta de madeira (batente, folha e ferragens).',250.00,'serv_porta.webp',5,'Inativo','2025-08-14 08:24:59',NULL,NULL),(6,'Manutenção','Corte e aparo de grama para jardins de até 50m². Inclui limpeza da área.',180.00,'serv_gramado.webp',6,'Inativo','2025-08-14 08:24:59',NULL,NULL),(7,'Forro de G','Instalação de forro de gesso (drywall) plano. Valor por m².',85.00,'serv_forro_gesso.webp',7,'Inativo','2025-08-14 08:24:59',NULL,NULL),(8,'Assentamen','Aplicação de porcelanato em pisos ou paredes. Rejunte incluso. Valor por m².',95.00,'serv_porcelanato.webp',8,'Inativo','2025-08-14 08:24:59',NULL,NULL),(9,'Impermeabi','Aplicação de manta asfáltica ou argamassa polimérica para vedação de lajes expostas. Valor por m².',110.00,'serv_impermeabilizacao.webp',9,'Inativo','2025-08-14 08:24:59',NULL,NULL),(10,'Fabricação','Criação de portão basculante ou deslizante em ferro. Modelo simples. Valor por m².',450.00,'serv_portao.webp',10,'Inativo','2025-08-14 08:24:59',NULL,NULL),(11,'Limpeza Fi','Serviço de limpeza detalhada para remoção de poeira e resíduos de cimento/tinta. Valor por m².',25.00,'serv_limpeza_obra.webp',11,'Inativo','2025-08-14 08:24:59',NULL,NULL),(12,'Instalação','Instalação de ar condicionado modelo Split de até 9000 BTUs. Material de fixação incluso.',480.00,'serv_split.webp',12,'Inativo','2025-08-14 08:24:59',NULL,NULL),(13,'Montagem d','Montagem de móveis comprados prontos (guarda-roupa, estante, etc). Valor por hora.',75.00,'serv_montagem_movel.webp',13,'Inativo','2025-08-14 08:24:59',NULL,NULL),(14,'Instalação','Instalação de box de banheiro padrão em vidro temperado.',300.00,'serv_box_vidro.webp',14,'Inativo','2025-08-14 08:24:59',NULL,NULL),(15,'Pintura Ex','Pintura de fachadas e muros com tinta acrílica. Valor por m².',45.00,'serv_pintura_externa.webp',2,'Inativo','2025-08-14 08:24:59',NULL,NULL),(16,'Troca de D','Substituição de disjuntor em quadro de energia. Valor por unidade.',80.00,'serv_disjuntor.webp',3,'Inativo','2025-08-14 08:24:59',NULL,NULL),(17,'Reparo de ','Troca de telhas quebradas e verificação de calhas. Valor da visita técnica.',200.00,'serv_reparo_telhado.webp',18,'Inativo','2025-08-14 08:24:59',NULL,NULL),(18,'Instalação','Instalação e configuração de câmera de segurança (CFTV). Valor por ponto.',180.00,'serv_camera.webp',17,'Inativo','2025-08-14 08:24:59',NULL,NULL),(19,'Reboco de ','Aplicação de massa de reboco em paredes internas ou externas para acabamento. Valor por m².',40.00,'serv_reboco.webp',1,'Inativo','2025-08-14 08:24:59',NULL,NULL),(20,'Consultori','Visita técnica para avaliação de obra, diagnóstico de problemas e orientação. Valor por hora.',250.00,'serv_consultoria.webp',20,'Inativo','2025-08-14 08:24:59',NULL,NULL),(21,'dddddddd','dffffffffffff',NULL,'servicos/6984808b014b79.66520199.webp',NULL,'Ativo','2026-02-05 08:35:39',NULL,NULL),(22,'xxxxxxxxxx','xxxxxxxxx  dddddddd',NULL,'servicos/699771ac26e1f5.92087668.png',NULL,'Inativo','2026-02-19 08:15:31','2026-02-19 17:25:16','trabalho'),(23,'xxxxxxxxxx','dddddddddddddddd',NULL,'servicos/6996f422f34226.47067485.webp',NULL,'Inativo','2026-02-19 08:29:38','2026-02-19 17:31:36','site'),(24,'xxxxxxxxxx','sssssssssssss',NULL,'servicos/6996f54f17c77.png',NULL,'Inativo','2026-02-19 08:34:39',NULL,NULL);
 /*!40000 ALTER TABLE `tbl_servico` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_sobre`
+--
+
+DROP TABLE IF EXISTS `tbl_sobre`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_sobre` (
+  `id_sobre` int NOT NULL AUTO_INCREMENT,
+  `titulo_sobre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descricao_sobre` text COLLATE utf8mb4_unicode_ci,
+  `imagem_sobre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `missao_sobre` text COLLATE utf8mb4_unicode_ci,
+  `visao_sobre` text COLLATE utf8mb4_unicode_ci,
+  `valores_sobre` text COLLATE utf8mb4_unicode_ci,
+  `status_sobre` enum('ativo','inativo') COLLATE utf8mb4_unicode_ci DEFAULT 'ativo',
+  `criado_em` datetime DEFAULT CURRENT_TIMESTAMP,
+  `atualizado_em` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_sobre`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_sobre`
+--
+
+LOCK TABLES `tbl_sobre` WRITE;
+/*!40000 ALTER TABLE `tbl_sobre` DISABLE KEYS */;
+INSERT INTO `tbl_sobre` VALUES (1,'xxxxxxxxxxxxx','sssssssssssssssssss','sobre/69977987e62ac3.72114507.webp','ssssssss','xxxxxxxxx','ssssssssssss','ativo','2026-02-19 17:51:56','2026-02-19 17:58:47');
+/*!40000 ALTER TABLE `tbl_sobre` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -347,16 +411,16 @@ DROP TABLE IF EXISTS `tbl_usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_usuario` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_usuario` varchar(100) NOT NULL,
-  `email_usuario` varchar(80) NOT NULL,
-  `senha_usuario` varchar(255) NOT NULL,
-  `tipo_usuario` varchar(15) DEFAULT NULL,
-  `status_usuario` varchar(10) DEFAULT NULL,
+  `id_usuario` int NOT NULL AUTO_INCREMENT,
+  `nome_usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email_usuario` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
+  `senha_usuario` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tipo_usuario` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status_usuario` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `criado_em` datetime DEFAULT NULL,
   `atualizado_em` datetime DEFAULT NULL,
   `excluido_em` datetime DEFAULT NULL,
-  `foto_usuario` varchar(45) DEFAULT NULL,
+  `foto_usuario` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `email_usuario` (`email_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1196 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -368,7 +432,7 @@ CREATE TABLE `tbl_usuario` (
 
 LOCK TABLES `tbl_usuario` WRITE;
 /*!40000 ALTER TABLE `tbl_usuario` DISABLE KEYS */;
-INSERT INTO `tbl_usuario` VALUES (1,'Ana Clara Souza','ana.souza@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,'2026-02-19 12:27:27',NULL),(2,'Bruno Costa Oliveira','bruno.costa@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,'2026-01-30 16:03:35',NULL),(3,'Carla Dias Martins','carla.martins@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(4,'Daniel Ferreira Lima','daniel.lima@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,'2026-01-30 16:03:42',NULL),(5,'Eduarda Pereira Alves','eduarda.alves@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(6,'Fábio Gomes Ribeiro','fabio.ribeiro@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(7,'Gabriela Santos Rodrigues','gabriela.santos@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(8,'Heitor Azevedo Barros','heitor.barros@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(9,'Isabela Correia Cunha','isabela.cunha@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(10,'João Mendes Nunes','joao.nunes@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(11,'Larissa Ramos Castro','larissa.castro@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','inativo','2025-08-14 08:24:49',NULL,'2026-02-19 12:27:24',NULL),(12,'Marcelo Pinto Soares','marcelo.soares@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(13,'Natália Rocha Melo','natalia.melo@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(14,'Otávio Teixeira Sales','otavio.sales@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(15,'Patrícia Viana Farias','patricia.farias@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','pendente','2025-08-14 08:24:49',NULL,NULL,NULL),(16,'Ricardo Almeida Silva','ricardo.almeida@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Pedreiro','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(17,'Sérgio Barbosa Moraes','sergio.moraes@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Eletricista','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(18,'Tatiane Jesus Dantas','tatiane.dantas@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Pintor','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(19,'Vinícius Nogueira Campos','vinicius.campos@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Encanador','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(20,'William Freitas Reis','william.reis@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Pedreiro','inativo','2025-08-14 08:24:49',NULL,NULL,NULL),(21,'rfaustino007@gmail.com','rfaustino007@gmail.com','$2y$10$O1jZnngGwzr53EgFq/SW/eq2ViGHeFvyI2BHQqXtgpJ3FQzbB./HS','admin','Ativo',NULL,NULL,NULL,'null'),(22,'xxxxxx','xxxxxxxx@xxxx.com','$2y$10$A0ob9cQBTeuJgFdI51VUge.64SiGNJgzDTCJ53uvNDHwY6d2QvGtC','user','1',NULL,NULL,NULL,''),(23,'rodrigo','rodrigo@faustino.com','$2y$10$Q8/wfrPel9u3Xa92xfFTqesP5G8MnQgnCQBBCxDycbZycEb1YJ68.','user','1',NULL,NULL,NULL,''),(480,'xxxxxxxxx','xxxxxxxxxx@gg.com','$2y$10$SIulcgJmlF2W/NyfVMp8iOgn.MRXThfEiZGYoslJMY3/DnEF3vGeq','user','1',NULL,NULL,NULL,''),(1123,'ssssssss','sssssssss@dd.com','$2y$10$0jOQl.6cjt9qpXXrQe5mtOFwHoL/GD9HN7Q/XFftWUCqbxIbPwJ9K','user','1',NULL,NULL,NULL,''),(1162,'ssssssssssss','sssssssSAAss@DD.COM','$2y$10$WHcGCChDIc.gNKsb8Ay.l.YFmpLUK4QdTYT0bVbep4gwz63YHUpmC','usuario','Ativo',NULL,NULL,NULL,NULL),(1179,'rodrigo','ro@faustino.com','$2y$10$fRcIe1L9mtdzylvvIQMCDens04hwGnbra93GJfXQOpYV5tEqQN3Tu','user','1',NULL,NULL,NULL,'');
+INSERT INTO `tbl_usuario` VALUES (1,'Ana Clara Souza','ana.souza@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','cliente','ativo','2025-08-14 08:24:49','2026-02-19 20:42:55',NULL,NULL),(2,'Bruno Costa XXXXX','bruno.costa@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','pedreiro','ativo','2025-08-14 08:24:49','2026-02-19 20:27:50','2026-01-30 16:03:35',NULL),(3,'Carla Dias Martins','carla.martins@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(4,'Daniel Ferreira Lima','daniel.lima@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,'2026-01-30 16:03:42',NULL),(5,'Eduarda Pereira Alves','eduarda.alves@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(6,'Fábio Gomes Ribeiro','fabio.ribeiro@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(7,'Gabriela Santos Rodrigues','gabriela.santos@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(8,'Heitor Azevedo Barros','heitor.barros@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(9,'Isabela Correia Cunha','isabela.cunha@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(10,'João Mendes Nunes','joao.nunes@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(11,'Larissa Ramos Castro','larissa.castro@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','inativo','2025-08-14 08:24:49',NULL,'2026-02-19 12:27:24',NULL),(12,'Marcelo Pinto Soares','marcelo.soares@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(13,'Natália Rocha Melo','natalia.melo@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(14,'Otávio Teixeira Sales','otavio.sales@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(15,'Patrícia Viana Farias','patricia.farias@emailcliente.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Cliente','pendente','2025-08-14 08:24:49',NULL,NULL,NULL),(16,'Ricardo Almeida Silva','ricardo.almeida@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Pedreiro','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(17,'Sérgio Barbosa Moraes','sergio.moraes@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Eletricista','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(18,'Tatiane Jesus Dantas','tatiane.dantas@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Pintor','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(19,'Vinícius Nogueira Campos','vinicius.campos@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Encanador','ativo','2025-08-14 08:24:49',NULL,NULL,NULL),(20,'William Freitas Reis','william.reis@emailpro.com','$2a$12$zP.g3o3.y2iV2R.3Q2qBgeu0Qh.3k4a5s6t7u8v9w0x1y2z3','Pedreiro','inativo','2025-08-14 08:24:49',NULL,NULL,NULL),(21,'rfaustino007@gmail.com','rfaustino007@gmail.com','$2y$10$O1jZnngGwzr53EgFq/SW/eq2ViGHeFvyI2BHQqXtgpJ3FQzbB./HS','admin','Ativo',NULL,NULL,NULL,'null'),(22,'xxxxxx','xxxxxxxx@xxxx.com','$2y$10$A0ob9cQBTeuJgFdI51VUge.64SiGNJgzDTCJ53uvNDHwY6d2QvGtC','user','1',NULL,NULL,NULL,''),(23,'rodrigo','rodrigo@faustino.com','$2y$10$Q8/wfrPel9u3Xa92xfFTqesP5G8MnQgnCQBBCxDycbZycEb1YJ68.','user','1',NULL,NULL,NULL,''),(480,'xxxxxxxxx','xxxxxxxxxx@gg.com','$2y$10$SIulcgJmlF2W/NyfVMp8iOgn.MRXThfEiZGYoslJMY3/DnEF3vGeq','user','1',NULL,NULL,NULL,''),(1123,'ssssssss','sssssssss@dd.com','$2y$10$0jOQl.6cjt9qpXXrQe5mtOFwHoL/GD9HN7Q/XFftWUCqbxIbPwJ9K','user','1',NULL,NULL,NULL,''),(1162,'ssssssssssss','sssssssSAAss@DD.COM','$2y$10$WHcGCChDIc.gNKsb8Ay.l.YFmpLUK4QdTYT0bVbep4gwz63YHUpmC','usuario','Ativo',NULL,NULL,NULL,NULL),(1179,'rodrigo','ro@faustino.com','$2y$10$fRcIe1L9mtdzylvvIQMCDens04hwGnbra93GJfXQOpYV5tEqQN3Tu','user','1',NULL,NULL,NULL,'');
 /*!40000 ALTER TABLE `tbl_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -381,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-19  8:46:05
+-- Dump completed on 2026-02-19 18:04:10

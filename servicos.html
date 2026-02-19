@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nossos Serviços - Ki-Pedreiro</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .servicos-hero {
+            background-color: #222;
+            color: #fff;
+            padding: 80px 20px 40px;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/img/bricklayer-adding-cement-top-bricks-min.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 60px;
+        }
+
+        .servicos-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--cor-laranja);
+        }
+    </style>
 </head>
+
 <body>
-<header class="cabecalho" id="navbar">
+    <header class="cabecalho" id="navbar">
     </header>
-<main>
-    <section class="servicos">
+    <main>
+        <section class="servicos-hero">
+            <div class="container">
+                <h1>Nossos Serviços</h1>
+                <p>Soluções completas para sua obra, do alicerce ao acabamento.</p>
+            </div>
+        </section>
+
+        <section class="servicos">
             <div class="container">
                 <div class="servicos__lista"></div>
             </div>
         </section>
-</main>
+    </main>
 
-       <footer class="rodape" id="footer">
+    <footer class="rodape" id="footer">
     </footer>
-     <script src="assets/js/navbar.js"></script>
-     <script src="assets/js/rodape.js"></script>
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/rodape.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const container = document.querySelector('.servicos__lista');
-            if (!container) return; 
+            if (!container) return;
             container.innerHTML = '<h3>Carregando serviços...</h3>';
             fetch('/backend/api/servicos')
                 .then(response => {
@@ -37,8 +64,8 @@
                     if (json.status !== 'success' || !json.data) {
                         throw new Error('API retornou um erro: ' + (json.message || 'Formato inválido'));
                     }
-                    
-                    container.innerHTML = ''; 
+
+                    container.innerHTML = '';
                     json.data.forEach(servico => {
                         const cardHtml = `
                             <div class="card" data-service="${servico.nome_servico.toLowerCase()}">
@@ -61,4 +88,5 @@
         });
     </script>
 </body>
+
 </html>
