@@ -85,8 +85,24 @@ class UsuarioController extends AdminController{
         );
     }
     
-    public function atualizarUsuario(){
-        echo "Atualizar Usuario";
+    public function atualizarUsuario($id){
+        // Validação básica (poderia usar UsuarioValidador aqui também)
+        if (empty($_POST['nome_usuario']) || empty($_POST['email_usuario'])) {
+            Redirect::redirecionarComMensagem("usuario/editar/$id", "error", "Nome e E-mail são obrigatórios.");
+            return;
+        }
+
+        $nome   = $_POST['nome_usuario'];
+        $email  = $_POST['email_usuario'];
+        $senha  = $_POST['senha_usuario'] ?? '';
+        $tipo   = $_POST['tipo_usuario'];
+        $status = $_POST['status_usuario'];
+
+        if ($this->usuario->atualizarUsuario($id, $nome, $email, $senha, $tipo, $status)) {
+             Redirect::redirecionarComMensagem("usuario/listar/1", "success", "Usuário atualizado com sucesso!");
+        } else {
+             Redirect::redirecionarComMensagem("usuario/editar/$id", "error", "Erro ao atualizar usuário.");
+        }
     }
     public function deletarUsuario(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_usuario'])) {

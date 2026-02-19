@@ -144,23 +144,39 @@ class Usuario{
 
     // metodo de atualizar o usuario update
     function atualizarUsuario($id, $nome, $email, $senha, $tipo, $status){
-        $senha = password_hash($senha, PASSWORD_DEFAULT);
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_usuario SET nome_usuario = :nome,
-         email_usuario = :email, 
-         senha_usuario = :senha, 
-         tipo_usuario = :tipo,
-         status_usuario = :status,
-         atualizado_em = :atual
-         WHERE id_usuario = :id";
+        
+        if (!empty($senha)) {
+            $senha = password_hash($senha, PASSWORD_DEFAULT);
+            $sql = "UPDATE tbl_usuario SET nome_usuario = :nome,
+             email_usuario = :email, 
+             senha_usuario = :senha, 
+             tipo_usuario = :tipo,
+             status_usuario = :status,
+             atualizado_em = :atual
+             WHERE id_usuario = :id";
+        } else {
+             $sql = "UPDATE tbl_usuario SET nome_usuario = :nome,
+             email_usuario = :email, 
+             tipo_usuario = :tipo,
+             status_usuario = :status,
+             atualizado_em = :atual
+             WHERE id_usuario = :id";
+        }
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
+        
+        if (!empty($senha)) {
+            $stmt->bindParam(':senha', $senha);
+        }
+        
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':status', $status);
         $stmt->bindParam(':atual', $dataatual);
+        
         if($stmt->execute()){
             return true;
         }else{

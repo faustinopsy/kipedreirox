@@ -41,13 +41,28 @@
                                placeholder="Breve descrição do serviço">
                     </div>
 
+                    <div class="adm-form-group">
+                        <label for="tipo_servico">Visibilidade do Serviço</label>
+                        <select id="tipo_servico" name="tipo_servico" required>
+                            <option value="trabalho" <?= (isset($servico['tipo_servico']) && $servico['tipo_servico'] == 'trabalho') ? 'selected' : '' ?>>Interno (Trabalho - Orçamentos)</option>
+                            <option value="site" <?= (isset($servico['tipo_servico']) && $servico['tipo_servico'] == 'site') ? 'selected' : '' ?>>Público (Site - Vitrine)</option>
+                        </select>
+                        <p class="hint">"Interno" aparece apenas para criar orçamentos. "Público" é exibido no site para clientes.</p>
+                    </div>
+
                     <!-- Foto atual -->
                     <div class="adm-form-group">
                         <label>Foto Atual</label>
                         <div style="display:flex;align-items:center;gap:16px;margin-top:4px;">
-                            <img src="/backend/upload/<?= htmlspecialchars($servico['foto_servico']); ?>"
-                                 alt="Foto atual"
-                                 style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:2px solid #e8e9ee;">
+                            <?php if (!empty($servico['foto_servico'])): ?>
+                                <img src="/backend/upload/<?= htmlspecialchars($servico['foto_servico']); ?>"
+                                     alt="Foto atual"
+                                     style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:2px solid #e8e9ee;">
+                            <?php else: ?>
+                                <div style="width:72px;height:72px;background:#eee;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#aaa;">
+                                    <i class="fa fa-image"></i>
+                                </div>
+                            <?php endif; ?>
                             <p class="hint" style="margin:0;">Esta é a foto atual. Envie uma nova abaixo para substituí-la.</p>
                         </div>
                     </div>
@@ -56,7 +71,22 @@
                     <div class="adm-form-group">
                         <label for="foto_servico">Substituir Foto <span style="font-weight:400;text-transform:none;color:#aaa;">(opcional)</span></label>
                         <input type="file" id="foto_servico" name="foto_servico" accept="image/*">
-                        <p class="hint">Formatos aceitos: JPG, PNG, WEBP. Deixe em branco para manter a foto atual.</p>
+                        <p class="hint">Formatos aceitos: JPG, PNG, WEBP. A nova imagem será comprimida automaticamente.</p>
+                    </div>
+
+
+                    <!-- Image Preview -->
+                    <div class="adm-img-preview-grid">
+                        <div class="adm-img-preview-box">
+                            <h4><i class="fa fa-image"></i> Original</h4>
+                            <img id="previewOriginal" alt="Preview original">
+                            <p id="infoOriginal"></p>
+                        </div>
+                        <div class="adm-img-preview-box">
+                            <h4><i class="fa fa-compress"></i> Comprimida (WebP)</h4>
+                            <img id="previewCompressed" alt="Preview comprimido">
+                            <p id="infoCompressed"></p>
+                        </div>
                     </div>
 
                 </div>
@@ -73,3 +103,4 @@
     </div>
 
 </div>
+<script src="/assets/js/image-compressor.js"></script>
