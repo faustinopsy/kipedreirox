@@ -28,6 +28,7 @@ class Rotas
                 '/api/usuarios/{pagina}' => 'APIUsuarioController@getUsuarios',
                 '/api/usuarios' => 'APIUsuarioController@getUsuarios',
                 '/api/sobre' => 'PublicApiController@getSobre', 
+                '/api/portfolio' => 'PublicApiController@getPortfolio',
 
                 '/servico/editar/{id}' => 'ServicoController@viewEditarServico',
                 '/servico/excluir/{id}' => 'ServicoController@viewExcluirServico',
@@ -37,6 +38,12 @@ class Rotas
                 '/sobre/criar' => 'SobreController@viewCriarSobre',
                 '/sobre/editar/{id}' => 'SobreController@viewEditarSobre',
                 '/sobre/excluir/{id}' => 'SobreController@viewExcluirSobre',
+
+                '/portfolio/listar' => 'PortfolioController@viewListarPortfolio',
+                '/portfolio/listar/{pagina}' => 'PortfolioController@viewListarPortfolio',
+                '/portfolio/criar' => 'PortfolioController@viewCriarPortfolio',
+                '/portfolio/editar/{id}' => 'PortfolioController@viewEditarPortfolio',
+                '/portfolio/excluir/{id}' => 'PortfolioController@viewExcluirPortfolio',
 
                 '/api/produtos' => 'PublicApiController@getProdutos',
 
@@ -70,6 +77,10 @@ class Rotas
                 '/sobre/salvar'    => 'SobreController@salvarSobre',
                 '/sobre/atualizar' => 'SobreController@atualizarSobre',
                 '/sobre/deletar'   => 'SobreController@deletarSobre',
+
+                '/portfolio/salvar'    => 'PortfolioController@salvarPortfolio',
+                '/portfolio/atualizar' => 'PortfolioController@atualizarPortfolio',
+                '/portfolio/deletar'   => 'PortfolioController@deletarPortfolio',
 
                
             ]

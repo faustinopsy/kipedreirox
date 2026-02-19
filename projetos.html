@@ -1,55 +1,355 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosso Portfólio - Ki-Pedreiro</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .projetos-hero {
+            background-color: #222;
+            color: #fff;
+            padding: 80px 20px 40px;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/img/workers-examining-work-min.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 60px;
+        }
+
+        .projetos-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--cor-laranja);
+        }
+
+        .projetos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .projetos-grid-dynamic {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .projeto-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .projeto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .projeto-img-wrapper {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .projeto-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .projeto-card:hover .projeto-img {
+            transform: scale(1.1);
+        }
+
+        .projeto-info {
+            padding: 20px;
+        }
+
+        .projeto-titulo {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .projeto-cliente {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .projeto-descricao {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-load-more {
+            background-color: transparent;
+            border: 2px solid var(--cor-laranja);
+            color: var(--cor-laranja);
+            padding: 10px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-load-more:hover {
+            background-color: var(--cor-laranja);
+            color: #fff;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1010;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .modal-text {
+            padding: 30px;
+        }
+    </style>
 </head>
-<body >
-        <header class="cabecalho" id="navbar">
+
+<body>
+
+    <header class="cabecalho" id="navbar">
+        <!-- Navbar injetada por JS -->
     </header>
+
     <main>
-<section class="projetos">
+        <section class="projetos-hero">
             <div class="container">
-                <h2 class="projetos__titulo">Nossos Projetos</h2>
-                <div class="projetos__grid">
-                    <div class="card-projeto" style="background-image: url('assets/img/room-showing-dramatic-beforeandafter-renovation-transformation-min.jpg');">
-                        <div class="card-projeto__overlay">
-                            <h3>Construção Residencial</h3>
-                            <p>Projeto completo de alvenaria estrutural para residência unifamiliar.</p>
-                        </div>
-                    </div>
-                     <div class="card-projeto" style="background-image: url('assets/img/workers-examining-work-min.jpg');">
-                        <div class="card-projeto__overlay">
-                            <h3>Escritório Moderno</h3>
-                            <p>Reforma e adequação de layout para ambiente corporativo.</p>
-                        </div>
-                    </div>
-                     <div class="card-projeto" style="background-image: url('assets/img/electrician-installer-with-tool-his-hands-working-with-cable-construction-site-min.jpg');
-                     background-position-y: top;">
-                        <div class="card-projeto__overlay">
-                            <h3>Instalação Elétrica</h3>
-                            <p>Infraestrutura elétrica para galpão industrial.</p>
-                        </div>
-                    </div>
-                     <div class="card-projeto" style="background-image: url('assets/img/worker-applying-mortar-with-trowel-brick-min.jpg');">
-                        <div class="card-projeto__overlay">
-                            <h3>Reforço Estrutural</h3>
-                            <p>Gestão e execução de reforço em estrutura de concreto.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="projetos__botao-container">
-                    <a href="projetos.html" class="botao botao--secundario">Todos os Projetos</a>
-                </div>
+                <h1>Nossos Projetos</h1>
+                <p>Confira alguns dos trabalhos realizados por nossa equipe.</p>
             </div>
         </section>
-            </main>
 
-       <footer class="rodape" id="footer">
+        <section class="projetos-container">
+            <div class="projetos-grid-dynamic" id="projetos-grid">
+                <!-- Projetos injetados aqui -->
+            </div>
+
+            <div class="load-more-container" id="load-more-container" style="display: none;">
+                <button class="btn-load-more" id="btn-load-more">Carregar Mais Projetos</button>
+            </div>
+
+            <div id="loading-spinner" style="text-align:center; padding: 20px; display: none;">
+                <div class="spinner" style="
+                    border: 4px solid #f3f3f3;
+                    border-top: 4px solid var(--cor-laranja);
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    animation: spin 1s linear infinite;
+                    margin: 0 auto;
+                "></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Detalhes -->
+    <div class="modal-overlay" id="modal-projeto">
+        <div class="modal-close" id="modal-close">&times;</div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="" alt="" class="modal-img" id="modal-img">
+                <div class="modal-text">
+                    <h2 id="modal-titulo" style="color:#333;margin-bottom:10px;"></h2>
+                    <p id="modal-cliente" style="color:#777;margin-bottom:20px;font-style:italic;"></p>
+                    <p id="modal-descricao" style="line-height:1.6;color:#555;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="rodape" id="footer">
+        <!-- Rodapé injetado por JS -->
     </footer>
+
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/rodape.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let paginaAtual = 1;
+            const porPagina = 6;
+            let carregarMais = true;
+            let carregando = false;
+
+            const grid = document.getElementById('projetos-grid');
+            const loadMoreBtn = document.getElementById('btn-load-more');
+            const loadMoreContainer = document.getElementById('load-more-container');
+            const loader = document.getElementById('loading-spinner');
+
+            // Modal elements
+            const modal = document.getElementById('modal-projeto');
+            const modalImg = document.getElementById('modal-img');
+            const modalTitulo = document.getElementById('modal-titulo');
+            const modalCliente = document.getElementById('modal-cliente');
+            const modalDescricao = document.getElementById('modal-descricao');
+            const modalClose = document.getElementById('modal-close');
+
+            // Setup Modal
+            modalClose.onclick = () => modal.style.display = 'none';
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.style.display = 'none';
+            }
+
+            function carregarProjetos() {
+                if (carregando || !carregarMais) return;
+                carregando = true;
+                loader.style.display = 'block';
+                loadMoreContainer.style.display = 'none';
+
+                fetch(`/backend/api/portfolio?page=${paginaAtual}&limit=${porPagina}`)
+                    .then(r => r.json())
+                    .then(json => {
+                        loader.style.display = 'none';
+                        carregando = false;
+
+                        if (json.status === 'success' && json.data.data.length > 0) {
+                            renderizarProjetos(json.data.data);
+
+                            if (paginaAtual < json.data.total_paginas) {
+                                paginaAtual++;
+                                loadMoreContainer.style.display = 'block';
+                            } else {
+                                carregarMais = false;
+                            }
+                        } else if (paginaAtual === 1) {
+                            grid.innerHTML = '<p style="text-align:center;grid-column:1/-1;padding:40px;">Nenhum projeto encontrado.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        carregando = false;
+                        loader.style.display = 'none';
+                    });
+            }
+
+            function renderizarProjetos(projetos) {
+                projetos.forEach(projeto => {
+                    const dataFormatada = new Date(projeto.data_projeto).toLocaleDateString('pt-BR');
+
+                    const card = document.createElement('div');
+                    card.className = 'projeto-card';
+                    card.innerHTML = `
+                        <div class="projeto-img-wrapper">
+                            <img src="${projeto.caminho_imagem}" alt="${projeto.titulo_portfolio}" class="projeto-img">
+                        </div>
+                        <div class="projeto-info">
+                            <h3 class="projeto-titulo">${projeto.titulo_portfolio}</h3>
+                            <div class="projeto-cliente">
+                                <i class="fa fa-user"></i> ${projeto.cliente_portfolio || 'Cliente Confidencial'}
+                                <span style="margin:0 5px;">•</span>
+                                <i class="fa fa-calendar"></i> ${dataFormatada}
+                            </div>
+                            <p class="projeto-descricao">${projeto.descricao_portfolio}</p>
+                        </div>
+                    `;
+
+                    // Click to open modal
+                    card.onclick = () => {
+                        modalImg.src = projeto.caminho_imagem;
+                        modalTitulo.innerText = projeto.titulo_portfolio;
+                        modalCliente.innerText = (projeto.cliente_portfolio ? 'Cliente: ' + projeto.cliente_portfolio : '') + ' • Data: ' + dataFormatada;
+                        modalDescricao.innerText = projeto.descricao_portfolio;
+                        modal.style.display = 'flex';
+                    };
+
+                    grid.appendChild(card);
+                });
+            }
+
+            loadMoreBtn.onclick = carregarProjetos;
+
+            // Initial load
+            carregarProjetos();
+        });
+    </script>
 </body>
+
 </html>

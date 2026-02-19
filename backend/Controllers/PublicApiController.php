@@ -72,11 +72,7 @@ class PublicApiController{
         description: "Dados institucionais ativos"
     )]
     public function getSobre() {
-        // Instantiate Sobre model internally or inject it. 
-        // Given existing structure, I'll instantiate it here or add to constructor.
-        // Adding to constructor is cleaner but requires modifying constructor.
-        // For minimal invasion, I'll instantiate locally or add property.
-        
+        // ... (previous code) ...
         $db = Database::getInstance();
         $sobreModel = new \App\Kipedreiro\Models\Sobre($db);
         $dados = $sobreModel->buscarSobreAtivo();
@@ -84,6 +80,33 @@ class PublicApiController{
         if ($dados) {
              $dados['caminho_imagem'] = '/backend/upload/' . $dados['imagem_sobre'];
         }
+
+        header('Content-Type: application/json');
+        http_response_code(200);
+        echo json_encode(['status' => 'success', 'data' => $dados], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+
+    #[OA\Get(
+        path: "/api/portfolio",
+        summary: "Listar portfolio ativo com paginação"
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Lista de projetos ativos"
+    )]
+    public function getPortfolio() {
+        $pagina = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $porPagina = isset($_GET['limit']) ? (int)$_GET['limit'] : 6;
+
+        $db = Database::getInstance();
+        $portfolioModel = new \App\Kipedreiro\Models\Portfolio($db);
+        $dados = $portfolioModel->buscarPortfolioAtivo($pagina, $porPagina);
+
+        foreach ($dados['data'] as &$item) {
+            $item['caminho_imagem'] = '/backend/upload/' . $item['imagem_portfolio'];
+        }
+        unset($item);
 
         header('Content-Type: application/json');
         http_response_code(200);
