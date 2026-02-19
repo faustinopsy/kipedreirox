@@ -33,5 +33,6 @@ function w3_close() {
 }
 </script>
 
+<script src="/assets/js/toast.js"></script>
 </body>
 </html>

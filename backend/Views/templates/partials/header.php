@@ -13,6 +13,7 @@ use App\Kipedreiro\Core\Session;
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/assets/css/admin.css">
+<link rel="stylesheet" href="/assets/css/toast.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
@@ -89,16 +90,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <?php
 endif;
 $mensagem = Flash::get();
-if(isset($mensagem)){
-   foreach($mensagem as $key => $value){
-        if($key == "type"){
-            $tipo = $value == "success" ? "alert-success" : "alert-danger";
-            echo "<div class='alert $tipo' role='alert'>";
-        }else{
-            echo $value;
-            echo "</div>";
-        }
-   }
-}
-
+if (isset($mensagem) && !empty($mensagem['message'])):
+    $flashType    = htmlspecialchars($mensagem['type']    ?? 'info', ENT_QUOTES);
+    $flashMessage = htmlspecialchars($mensagem['message'] ?? '',      ENT_QUOTES);
 ?>
+<div id="flash-data"
+     data-toast-type="<?= $flashType ?>"
+     data-toast-message="<?= $flashMessage ?>"
+     hidden></div>
+<?php endif; ?>

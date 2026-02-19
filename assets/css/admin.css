@@ -79,7 +79,7 @@ nav#mySidebar .w3-bar-block a i {
 /* Top bar override */
 div.w3-top.w3-black {
     background: var(--adm-dark-2) !important;
-    border-bottom: 1px solid rgba(255, 199, 9, 0.2);
+    border-bottom: 5px solid rgba(255, 199, 9, 0.2);
 }
 
 /* ---------- Main content area ---------- */

@@ -1,0 +1,269 @@
+/* ============================================================
+   KIPEDREIRO – Toast Notification System
+   Modular, reutilizável, com barra de progresso
+   Paleta: success #22c55e | error #ef4444 | warning #FFC709
+   ============================================================ */
+
+/* ---- Container ---- */
+#toast-container {
+    position: fixed;
+    top: 78px;
+    right: 28px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+    max-width: 360px;
+    width: calc(100% - 56px);
+}
+
+/* ---- Toast card ---- */
+.kp-toast {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.12),
+        0 1px 4px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    pointer-events: all;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* slide-in from right */
+    animation: kpToastIn 0.38s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    border-left: 4px solid transparent;
+    transform-origin: right center;
+}
+
+.kp-toast.kp-toast--removing {
+    animation: kpToastOut 0.32s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+/* ---- Type variants ---- */
+.kp-toast--success {
+    border-left-color: #22c55e;
+}
+
+.kp-toast--error {
+    border-left-color: #ef4444;
+}
+
+.kp-toast--warning {
+    border-left-color: #FFC709;
+}
+
+.kp-toast--info {
+    border-left-color: #3b82f6;
+}
+
+/* ---- Body (icon + text + close) ---- */
+.kp-toast__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 14px 14px 16px;
+}
+
+/* ---- Icon circle ---- */
+.kp-toast__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.kp-toast--success .kp-toast__icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.kp-toast--error .kp-toast__icon {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.kp-toast--warning .kp-toast__icon {
+    background: #fef9c3;
+    color: #a16207;
+}
+
+.kp-toast--info .kp-toast__icon {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* ---- Text block ---- */
+.kp-toast__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.kp-toast__title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin: 0 0 3px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.kp-toast--success .kp-toast__title {
+    color: #15803d;
+}
+
+.kp-toast--error .kp-toast__title {
+    color: #b91c1c;
+}
+
+.kp-toast--warning .kp-toast__title {
+    color: #92400e;
+}
+
+.kp-toast--info .kp-toast__title {
+    color: #1e40af;
+}
+
+.kp-toast__message {
+    font-size: 0.88rem;
+    color: #444;
+    line-height: 1.5;
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    word-break: break-word;
+}
+
+/* strip inline HTML tags that may come from PHP implode('<br>', $erros) */
+.kp-toast__message br {
+    display: block;
+    margin-top: 2px;
+}
+
+/* ---- Close button ---- */
+.kp-toast__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: -2px;
+    transition: background 0.15s, color 0.15s;
+    padding: 0;
+}
+
+.kp-toast__close:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* ---- Progress bar ---- */
+.kp-toast__progress {
+    height: 3px;
+    width: 100%;
+    position: relative;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.kp-toast__progress-bar {
+    height: 100%;
+    width: 100%;
+    transform-origin: left center;
+    border-radius: 0 0 0 0;
+    transition: transform linear;
+}
+
+.kp-toast--success .kp-toast__progress-bar {
+    background: #22c55e;
+}
+
+.kp-toast--error .kp-toast__progress-bar {
+    background: #ef4444;
+}
+
+.kp-toast--warning .kp-toast__progress-bar {
+    background: #FFC709;
+}
+
+.kp-toast--info .kp-toast__progress-bar {
+    background: #3b82f6;
+}
+
+/* ---- Keyframe animations ---- */
+@keyframes kpToastIn {
+    from {
+        opacity: 0;
+        transform: translateX(80px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes kpToastOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        max-height: 200px;
+        margin-bottom: 0px;
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(60px) scale(0.95);
+        max-height: 0;
+        margin-bottom: -12px;
+        padding-top: 0;
+    }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 540px) {
+    #toast-container {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+        max-width: none;
+    }
+
+    @keyframes kpToastIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes kpToastOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 200px;
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+        }
+    }
+}
