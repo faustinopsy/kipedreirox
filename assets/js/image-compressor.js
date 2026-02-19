@@ -3,66 +3,80 @@
  * Handles client-side image compression and preview generation.
  */
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Only initialize if the required elements exist
-    const input = document.getElementById('foto_servico');
-    const outputDiv = document.getElementById('infoCompressed');
-    const previewImg = document.getElementById('previewCompressed');
-    const previewOriginal = document.getElementById('previewOriginal');
-    const infoOriginal = document.getElementById('infoOriginal');
+(function () {
+    function initCompressor() {
+        // Only initialize if the required elements exist
+        const input = document.getElementById('foto_servico');
+        const outputDiv = document.getElementById('infoCompressed');
+        const previewImg = document.getElementById('previewCompressed');
+        const previewOriginal = document.getElementById('previewOriginal');
+        const infoOriginal = document.getElementById('infoOriginal');
 
-    if (!input || !outputDiv || !previewImg || !previewOriginal || !infoOriginal) {
-        // Elements not found, this page might not have the image upload form
-        return;
+        if (!input || !outputDiv || !previewImg || !previewOriginal || !infoOriginal) {
+            // Elements not found, this page might not have the image upload form
+            return;
+        }
+
+        input.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Skip if already webp (but show it?)
+            // For now, if it's webp, we might want to just show it in previewOriginal at least
+            if (file.type === 'image/webp' && file.name.endsWith('.webp')) {
+                previewOriginal.style.display = 'block';
+                previewOriginal.src = URL.createObjectURL(file);
+                infoOriginal.innerText = "Imagem já em formato WebP.";
+                return;
+            }
+
+            previewOriginal.style.display = 'block';
+            previewOriginal.src = URL.createObjectURL(file);
+            infoOriginal.innerText = "Processando...";
+
+            try {
+                const result = await compressImage(file);
+
+                infoOriginal.innerHTML = `
+                Tamanho: ${(result.meta.originalSize / 1024).toFixed(2)} KB<br>
+                Dimensões: ${result.meta.originalWidth} × ${result.meta.originalHeight} px
+            `;
+
+                previewImg.style.display = 'block';
+                previewImg.src = URL.createObjectURL(result.file);
+
+                const colorBox = `<span style="display:inline-block;width:14px;height:14px;background:${result.meta.dominantColor};border-radius:3px;border:1px solid #ccc;vertical-align:middle;margin-left:4px;"></span>`;
+
+                outputDiv.innerHTML = `
+            Tamanho final: ${(result.meta.compressedSize / 1024).toFixed(2)} KB<br>
+            Dimensões: ${result.meta.finalWidth} × ${result.meta.finalHeight} px<br>
+            Cor predominante: ${result.meta.dominantColor} ${colorBox}<br>
+            <span class="ready" style="color:#16a34a;font-weight:700;"><i class="fa fa-check-circle"></i> Pronto para envio!</span>
+            `;
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(result.file);
+                input.files = dataTransfer.files;
+
+            } catch (err) {
+                console.error(err);
+                infoOriginal.innerText = "Erro ao processar.";
+                // alert("Erro ao processar imagem para compressão."); // Removed alert to be less intrusive
+                if (typeof Toast !== 'undefined' && Toast.error) {
+                    Toast.error("Erro ao processar imagem para compressão.");
+                } else {
+                    alert("Erro ao processar imagem para compressão.");
+                }
+            }
+        });
     }
 
-    input.addEventListener('change', async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        // Skip if already webp
-        if (file.type === 'image/webp' && file.name.endsWith('.webp')) return;
-
-        previewOriginal.style.display = 'block';
-        previewOriginal.src = URL.createObjectURL(file);
-        infoOriginal.innerText = "Processando...";
-
-        try {
-            const result = await compressImage(file);
-
-            infoOriginal.innerHTML = `
-            Tamanho: ${(result.meta.originalSize / 1024).toFixed(2)} KB<br>
-            Dimensões: ${result.meta.originalWidth} × ${result.meta.originalHeight} px
-        `;
-
-            previewImg.style.display = 'block';
-            previewImg.src = URL.createObjectURL(result.file);
-
-            const colorBox = `<span style="display:inline-block;width:14px;height:14px;background:${result.meta.dominantColor};border-radius:3px;border:1px solid #ccc;vertical-align:middle;margin-left:4px;"></span>`;
-
-            outputDiv.innerHTML = `
-          Tamanho final: ${(result.meta.compressedSize / 1024).toFixed(2)} KB<br>
-          Dimensões: ${result.meta.finalWidth} × ${result.meta.finalHeight} px<br>
-          Cor predominante: ${result.meta.dominantColor} ${colorBox}<br>
-          <span class="ready" style="color:#16a34a;font-weight:700;"><i class="fa fa-check-circle"></i> Pronto para envio!</span>
-        `;
-
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(result.file);
-            input.files = dataTransfer.files;
-
-        } catch (err) {
-            console.error(err);
-            infoOriginal.innerText = "Erro ao processar.";
-            // alert("Erro ao processar imagem para compressão."); // Removed alert to be less intrusive
-            if (typeof Toast !== 'undefined' && Toast.error) {
-                Toast.error("Erro ao processar imagem para compressão.");
-            } else {
-                alert("Erro ao processar imagem para compressão.");
-            }
-        }
-    });
-});
+    if (document.readyState === 'loading') {
+        document.addEventListener("DOMContentLoaded", initCompressor);
+    } else {
+        initCompressor();
+    }
+})();
 
 function getAverageColor(ctx, width, height) {
     const imageData = ctx.getImageData(0, 0, width, height);

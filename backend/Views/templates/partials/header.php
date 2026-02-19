@@ -77,6 +77,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="/backend/orcamento/listar/1" class="w3-bar-item w3-button">
       <i class="fa fa-file-text-o fa-fw"></i>  Orçamentos
     </a>
+    <a href="/backend/sobre/listar" class="w3-bar-item w3-button">
+      <i class="fa fa-info-circle fa-fw"></i>  Sobre Nós
+    </a>
     <a href="/backend/logout" class="w3-bar-item w3-button">
       <i class="fa fa-sign-out fa-fw"></i>  Sair
     </a>

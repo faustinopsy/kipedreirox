@@ -63,6 +63,34 @@ class PublicApiController{
         exit;
     }
 
+    #[OA\Get(
+        path: "/api/sobre",
+        summary: "Obter dados da página Sobre Nós"
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Dados institucionais ativos"
+    )]
+    public function getSobre() {
+        // Instantiate Sobre model internally or inject it. 
+        // Given existing structure, I'll instantiate it here or add to constructor.
+        // Adding to constructor is cleaner but requires modifying constructor.
+        // For minimal invasion, I'll instantiate locally or add property.
+        
+        $db = Database::getInstance();
+        $sobreModel = new \App\Kipedreiro\Models\Sobre($db);
+        $dados = $sobreModel->buscarSobreAtivo();
+
+        if ($dados) {
+             $dados['caminho_imagem'] = '/backend/upload/' . $dados['imagem_sobre'];
+        }
+
+        header('Content-Type: application/json');
+        http_response_code(200);
+        echo json_encode(['status' => 'success', 'data' => $dados], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+
     #[OA\Post(
         path: "/api/servicos",
         summary: "Cadastrar novo serviço",

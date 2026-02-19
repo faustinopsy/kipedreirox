@@ -27,8 +27,16 @@ class Rotas
                 '/api/servicos' => 'PublicApiController@getServicos',
                 '/api/usuarios/{pagina}' => 'APIUsuarioController@getUsuarios',
                 '/api/usuarios' => 'APIUsuarioController@getUsuarios',
+                '/api/sobre' => 'PublicApiController@getSobre', 
+
                 '/servico/editar/{id}' => 'ServicoController@viewEditarServico',
                 '/servico/excluir/{id}' => 'ServicoController@viewExcluirServico',
+
+                '/sobre/listar' => 'SobreController@viewListarSobre',
+                '/sobre/listar/{pagina}' => 'SobreController@viewListarSobre',
+                '/sobre/criar' => 'SobreController@viewCriarSobre',
+                '/sobre/editar/{id}' => 'SobreController@viewEditarSobre',
+                '/sobre/excluir/{id}' => 'SobreController@viewExcluirSobre',
 
                 '/api/produtos' => 'PublicApiController@getProdutos',
 
@@ -58,6 +66,10 @@ class Rotas
                 '/orcamento/salvar'    => 'OrcamentoController@salvarOrcamento',
                 '/orcamento/atualizar' => 'OrcamentoController@atualizarOrcamento',
                 '/orcamento/cancelar'  => 'OrcamentoController@cancelarOrcamento',
+
+                '/sobre/salvar'    => 'SobreController@salvarSobre',
+                '/sobre/atualizar' => 'SobreController@atualizarSobre',
+                '/sobre/deletar'   => 'SobreController@deletarSobre',
 
                
             ]

@@ -86,9 +86,9 @@ class UsuarioController extends AdminController{
     }
     
     public function atualizarUsuario($id){
-        // Validação básica (poderia usar UsuarioValidador aqui também)
-        if (empty($_POST['nome_usuario']) || empty($_POST['email_usuario'])) {
-            Redirect::redirecionarComMensagem("usuario/editar/$id", "error", "Nome e E-mail são obrigatórios.");
+        $erros = UsuarioValidador::ValidarEntradas($_POST, true);
+        if(!empty($erros)){
+            Redirect::redirecionarComMensagem("usuario/editar/$id", "error", implode("<br>", $erros));
             return;
         }
 
