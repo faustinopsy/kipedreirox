@@ -25,6 +25,10 @@ $router = new Router();
 // verAutorizacao();
 
 
+// Configurar Base Path dinamicamente
+$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$router->setBasePath($scriptName);
+
 $rotas = Rotas::get();
 $router->setNamespace('\App\Kipedreiro\Controllers');
                     //metodoHttp =GET POST    rota= URL

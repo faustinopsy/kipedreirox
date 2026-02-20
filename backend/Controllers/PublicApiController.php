@@ -236,4 +236,52 @@ class PublicApiController{
         }
         exit;
     }
+
+    #[OA\Post(
+        path: "/api/contato",
+        summary: "Enviar mensagem de contato",
+        requestBody: new OA\RequestBody(
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: "nome", type: "string"),
+                    new OA\Property(property: "email", type: "string"),
+                    new OA\Property(property: "mensagem", type: "string")
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(response: 200, description: "Mensagem enviada"),
+            new OA\Response(response: 400, description: "Erro de validação")
+        ]
+    )]
+    public function salvarContato() {
+        $data = json_decode(file_get_contents("php://input"), true);
+        
+        $nome = $data['nome'] ?? '';
+        $email = $data['email'] ?? '';
+        $mensagem = $data['mensagem'] ?? '';
+        $telefone = $data['telefone'] ?? null;
+        $assunto = $data['assunto'] ?? null;
+
+        // Logging para debug (opcional)
+        // file_put_contents('debug_contato.txt', print_r($data, true), FILE_APPEND);
+
+        if (empty($nome) || empty($email) || empty($mensagem)) {
+            http_response_code(400);
+            echo json_encode(['status' => false, 'message' => 'Preencha todos os campos obrigatórios (nome, email, mensagem).']);
+            exit;
+        }
+
+        $db = Database::getInstance();
+        $contatoModel = new \App\Kipedreiro\Models\Contato($db);
+
+        if ($contatoModel->inserirMensagem($nome, $email, $mensagem, $telefone, $assunto)) {
+             http_response_code(200);
+             echo json_encode(['status' => true, 'message' => 'Mensagem enviada com sucesso!']);
+        } else {
+             http_response_code(500);
+             echo json_encode(['status' => false, 'message' => 'Erro ao enviar mensagem.']);
+        }
+        exit;
+    }
 }

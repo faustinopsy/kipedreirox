@@ -52,12 +52,16 @@ class Rotas
                 '/orcamento/criar'         => 'OrcamentoController@viewCriarOrcamento',
                 '/orcamento/editar/{id}'   => 'OrcamentoController@viewEditarOrcamento',
                 '/orcamento/cancelar/{id}' => 'OrcamentoController@viewCancelarOrcamento',
+
+                '/contato/listar'          => 'ContatoController@viewListarMensagens',
+                '/contato/listar/{pagina}' => 'ContatoController@viewListarMensagens',
+                '/contato/ver/{id}'        => 'ContatoController@viewMensagem',
             ],
             
             "POST" => [
                 '/api/servicos' => 'PublicApiController@salvarServicoAPI',
                 '/api/pedidos' => 'PublicApiController@salvarPedido',
-                 '/api/contato' => 'ContactController@send',
+                '/api/contato' => 'PublicApiController@salvarContato',
                  
                 "/api/usuariosalvar" => "APIUsuarioController@salvarUsuario",
                 "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",

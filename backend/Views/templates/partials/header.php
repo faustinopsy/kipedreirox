@@ -62,26 +62,36 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-container"><h5>Menu</h5></div>
 
   <div class="w3-bar-block">
+    <?php
+    function isAtivo($keyword) {
+        $uri = $_SERVER['REQUEST_URI'] ?? '';
+        return (strpos($uri, $keyword) !== false) ? 'ativo' : '';
+    }
+    ?>
     <a href="#" class="w3-bar-item w3-button w3-hide-large" onclick="w3_close()">
       <i class="fa fa-times fa-fw"></i>  Fechar
     </a>
-    <a href="/backend/admin/dashboard" class="w3-bar-item w3-button">
+    <a href="/backend/admin/dashboard" class="w3-bar-item w3-button <?= isAtivo('/admin/dashboard') ?>">
       <i class="fa fa-dashboard fa-fw"></i>  Dashboard
     </a>
-    <a href="/backend/usuario/listar/1" class="w3-bar-item w3-button">
+    <a href="/backend/usuario/listar/1" class="w3-bar-item w3-button <?= isAtivo('/usuario/') ?>">
       <i class="fa fa-users fa-fw"></i>  Usuários
     </a>
-    <a href="/backend/servico/listar" class="w3-bar-item w3-button">
+    <a href="/backend/servico/listar" class="w3-bar-item w3-button <?= isAtivo('/servico/') ?>">
       <i class="fa fa-briefcase fa-fw"></i>  Serviços
     </a>
-    <a href="/backend/orcamento/listar/1" class="w3-bar-item w3-button">
+    <a href="/backend/orcamento/listar/1" class="w3-bar-item w3-button <?= isAtivo('/orcamento/') ?>">
       <i class="fa fa-file-text-o fa-fw"></i>  Orçamentos
     </a>
-    <a href="/backend/portfolio/listar" class="w3-bar-item w3-button">
+    <hr>
+    <a href="/backend/portfolio/listar" class="w3-bar-item w3-button <?= isAtivo('/portfolio/') ?>">
       <i class="fa fa-th-large fa-fw"></i>  Portfólio
     </a>
-    <a href="/backend/sobre/listar" class="w3-bar-item w3-button">
+    <a href="/backend/sobre/listar" class="w3-bar-item w3-button <?= isAtivo('/sobre/') ?>">
       <i class="fa fa-info-circle fa-fw"></i>  Sobre Nós
+    </a>
+    <a href="/backend/contato/listar" class="w3-bar-item w3-button <?= isAtivo('/contato/') ?>">
+      <i class="fa fa-envelope fa-fw"></i>  Mensagens
     </a>
     <a href="/backend/logout" class="w3-bar-item w3-button">
       <i class="fa fa-sign-out fa-fw"></i>  Sair
