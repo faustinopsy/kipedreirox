@@ -20,10 +20,18 @@ class AuthController{
     }
 
     public function login(): void {
+        if ($this->session->has('usuario_id')) {
+            Redirect::redirecionarPara('/admin/dashboard');
+            return;
+        }
         View::render('auth/login');
     }
 
     public function register(): void{
+        if ($this->session->has('usuario_id')) {
+            Redirect::redirecionarPara('/admin/dashboard');
+            return;
+        }
         View::render('auth/register');
     }
 

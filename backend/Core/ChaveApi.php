@@ -8,18 +8,38 @@ class ChaveApi{
     }
     private function buscaChaveAPI(){
         $headers = getallheaders();
-        if (!isset($headers["Authorization"])) {
+        
+        // Normaliza headers (alguns servidores enviam minúsculo)
+        $authHeader = null;
+        if (isset($headers["Authorization"])) {
+            $authHeader = $headers["Authorization"];
+        } elseif (isset($headers["authorization"])) {
+            $authHeader = $headers["authorization"];
+        }
+
+        if (!$authHeader) {
             return false;
         }
         
-        $token = explode(" ", $headers["Authorization"])[1];
-        return $token === $this->chaveAPI;
+        // Esperado: "Bearer TOKEN"
+        $parts = explode(" ", $authHeader);
+        
+        // Verifica se tem 2 partes e se a primeira é Bearer
+        if (count($parts) < 2 || strcasecmp($parts[0], 'Bearer') != 0) {
+            return false;
+        }
+
+        $token = $parts[1];
+        return hash_equals($this->chaveAPI, $token); // hash_equals proteje contra timing attacks
     }
+
     public function validarChave() {
         if (!$this->buscaChaveAPI()) {
-            http_response_code(500);
+            http_response_code(401); // 401 Unauthorized é o correto para falta de credenciais validas
             echo json_encode([
-                'status' => 'error', 'message' => 'chave de API inválida'
+                'status' => 'error', 
+                'message' => 'Acesso não autorizado. Chave de API inválida ou ausente.',
+                'code' => 401
             ]);
             exit;
         } 
