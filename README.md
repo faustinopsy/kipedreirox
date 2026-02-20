@@ -65,38 +65,51 @@ O projeto utiliza uma **arquitetura Híbrida** composta por:
 *   Atualmente, o frontend estático (`.html`) e o backend (`/backend`) operam de forma quase independente.
 *   **Ponto de Atenção**: Formulários no frontend estático (como `contato.html`) tentam enviar dados para scripts que podem não estar integrados corretamente ao sistema de rotas do backend (ex: `enviaemail.php` vs Rotas do Controller).
 
-## 🚀 Como Utilizar (Setup)
+## 🚀 Como Executar o Projeto (Guia Rápido)
 
 ### Pré-requisitos
-*   PHP 7.4 ou superior.
-*   Composer.
-*   Servidor Web (Apache/Nginx) ou PHP Built-in Server.
-*   Banco de Dados MySQL.
+*   **PHP** (v7.4 ou superior)
+*   **MySQL** (ou MariaDB)
+*   **Composer** (Gerenciador de dependências do PHP)
 
-### Instalação
-1.  **Clone o repositório**:
+### Passo a Passo da Instalação
+
+1.  **Clone o Repositório**:
     ```bash
     git clone https://github.com/FaustinoPSY/kipedreirox.git
+    cd kipedreirox
     ```
 
-2.  **Instale as dependências**:
-    Navegue até a raiz ou pasta backend (dependendo de onde está o `composer.json`) e execute:
+2.  **Instale as Dependências**:
+    Na raiz do projeto (onde está o `composer.json`), execute:
     ```bash
     composer install
     ```
 
 3.  **Configuração do Banco de Dados**:
-    *   Abra `backend/Database/Config.php`.
-    *   Configure as credenciais (Host, Nome do Banco, Usuário, Senha).
-    *   Importe o esquema do banco de dados (caso haja um arquivo SQL disponível).
+    *   Abra o arquivo `backend/Database/Config.php`.
+    *   Verifique as credenciais no array `mysql` (usuário, senha, host). O padrão é usuário `root` sem senha. Ajuste conforme seu ambiente local.
 
-4.  **Execução**:
-    Para rodar localmente com PHP na raiz do projeto:
+4.  **Criação do Banco de Dados (Migração)**:
+    Execute o script automático que cria o banco `kipedreiro` e as tabelas:
+    ```bash
+    php backend/migrate.php
+    ```
+    *Se tudo der certo, você verá a mensagem: "Migração concluída com sucesso!"*
+
+5.  **Iniciar o Servidor**:
+    Para rodar localmente usando o servidor embutido do PHP:
     ```bash
     php -S localhost:8000
     ```
-    *   Frontend acessível em: `http://localhost:8000`
-    *   Backend acessível em: `http://localhost:8000/backend`
+
+### Acessando o Projeto
+*   **Frontend (Home)**: [http://localhost:8000](http://localhost:8000)
+*   **Painel Administrativo**: [http://localhost:8000/backend/login](http://localhost:8000/backend/login)
+    *   **Login de Teste**: `rfaustino007@gmail.com`
+    *   **Senha**: (Verificar hash no banco ou criar novo usuário via registro)
+
+---
 
 ## 🛠️ Tecnologias Principais
 *   **Frontend**: HTML5, CSS3, JS Vanilla.
