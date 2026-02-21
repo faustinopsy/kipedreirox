@@ -19,10 +19,10 @@ class APIUsuarioController{
         $registros_por_pagina = $pagina===0 ? 200 : 5;
         $pagina = $pagina===0 ? 1 : (int)$pagina;
         $dados = $this->usuarioModel->paginacaoAPI($pagina, $registros_por_pagina);
-        foreach($dados['data'] as &$usuario) {
-            unset($usuario['senha_usuario']);
-        }
-        unset($usuario);
+        // foreach($dados['data'] as &$usuario) {
+        //     unset($usuario['senha_usuario']);
+        // }
+        // unset($usuario);
         header('Content-Type: application/json');
         http_response_code(200);
         echo json_encode([
