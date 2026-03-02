@@ -47,6 +47,9 @@ class Rotas
 
                 '/api/produtos' => 'PublicApiController@getProdutos',
 
+                '/api/docs' => 'SwaggerController@docs',
+                '/api/swagger.json' => 'SwaggerController@json',
+
                 '/orcamento/listar/1'      => 'OrcamentoController@viewListarOrcamentos',
                 '/orcamento/listar/{pagina}' => 'OrcamentoController@viewListarOrcamentos',
                 '/orcamento/criar'         => 'OrcamentoController@viewCriarOrcamento',

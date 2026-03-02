@@ -10,6 +10,10 @@ use App\Kipedreiro\Models\Pedido;
 
 
 #[OA\Info(title: "Kipedreiro API", version: "1.0.0")]
+#[OA\Server(
+    url: "/backend",
+    description: "Servidor Principal (com sufixo /backend)"
+)]
 class PublicApiController{
     private $servicoModel;
     private $produtoModel;

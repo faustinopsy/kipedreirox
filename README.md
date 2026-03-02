@@ -109,10 +109,38 @@ O projeto utiliza uma **arquitetura Híbrida** composta por:
     *   **Login de Teste**: `rfaustino007@gmail.com`
     *   **Senha**: (Verificar hash no banco ou criar novo usuário via registro)
 
+## 📖 Documentação da API (Swagger UI)
+
+O projeto possui uma documentação interativa para a API, essencial para que desenvolvedores (frontend e parceiros) testem e entendam facilmente quais endpoints existem, os parâmetros esperados e os formatos de resposta sem precisar visualizar o código-fonte manualmente.
+
+### Como Funciona e Bibliotecas Utilizadas
+Utilizamos a biblioteca **`zircote/swagger-php`** para escanear e ler automaticamente as anotações contidas nos Controllers do projeto convertendo-as na especificação OpenAPI estrita (JSON), e o **Swagger UI** (`swagger-ui-dist` via CDN) para renderizar o painel de interface visual na web.
+
+### Como Documentar um Controller
+Para que a API reconheça e exiba a rota na documentação automática, você deve utilizar os **Attributes** do PHP 8 aplicados diretamente nos métodos das requisições do seu Controller.
+É obrigatório incluir o `use` indicando o alias das anotações no topo da classe (`use OpenApi\Attributes as OA;`).
+
+**Exemplo básico no método de um Controller:**
+```php
+#[OA\Get(path: "/api/exemplo", summary: "Endpoint de Exemplo")]
+#[OA\Response(response: 200, description: "Retorna a lista de sucesso")]
+public function meuMetodoExemplo() { 
+    // ...
+}
+```
+
+### Rotas Necessárias para Funcionar
+O acesso a documentação é provido pelo `SwaggerController.php` e para que tudo funcione, o arquivo `backend/Rotas/Rotas.php` requer obrigatoriamente duas rotas listadas no método `GET`:
+- `'/api/docs' => 'SwaggerController@docs'`: Renderiza a tela HTML contendo a interface em blocos visuais.
+- `'/api/swagger.json' => 'SwaggerController@json'`: Executa em runtime o escaneamento na pasta *Controllers* e serve os dados convertidos como JSON para alimentar a rotas de UI.
+
+Para utilizar e testar as APIs pelo navegador localmente, basta rodar o servidor e acessar: `http://localhost:8000/backend/api/docs`
+
 ---
 
 ## 🛠️ Tecnologias Principais
 *   **Frontend**: HTML5, CSS3, JS Vanilla.
-*   **Backend**: PHP.
+*   **Backend**: PHP 8+.
 *   **Rotas**: Bramus/Router.
 *   **Email**: PHPMailer.
+*   **Docs**: Swagger-PHP (Generação OpenAPI).
